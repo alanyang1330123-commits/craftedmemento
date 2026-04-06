@@ -3,585 +3,1214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CraftedMemento Creations - Custom Souvenir Design Platform</title>
+    <title>CraftedMemento Creations - Custom Souvenir Design & Manufacturing Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --primary: #1a3a5c;
+            --primary-light: #2a5a8c;
             --accent: #e8973e;
+            --accent-dark: #d4831a;
             --light: #f5f7fa;
+            --lighter: #fafbfc;
             --dark: #0d1f33;
+            --darker: #081525;
             --text: #333;
+            --text-light: #666;
+            --text-muted: #888;
             --white: #ffffff;
+            --green: #2a8c5a;
+            --green-dark: #1a6b40;
+            --red: #e85d5d;
+            --purple: #6c5ce7;
         }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: var(--text); line-height: 1.6; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', 'Segoe UI', sans-serif; color: var(--text); line-height: 1.7; overflow-x: hidden; }
 
-        /* Navigation */
+        /* ========== ANIMATIONS ========== */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInLeft { from { opacity: 0; transform: translateX(-40px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes fadeInRight { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes float { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
+        @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(60px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes rotateIn { from { opacity: 0; transform: rotate(-10deg) scale(0.9); } to { opacity: 1; transform: rotate(0) scale(1); } }
+        @keyframes countUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        @keyframes particle1 { 0%,100% { transform: translate(0,0) rotate(0deg); opacity:0.3; } 25% { transform: translate(100px,-50px) rotate(90deg); opacity:0.6; } 50% { transform: translate(50px,-100px) rotate(180deg); opacity:0.3; } 75% { transform: translate(-50px,-50px) rotate(270deg); opacity:0.5; } }
+        @keyframes particle2 { 0%,100% { transform: translate(0,0) rotate(0deg); opacity:0.2; } 33% { transform: translate(-80px,60px) rotate(120deg); opacity:0.5; } 66% { transform: translate(60px,30px) rotate(240deg); opacity:0.3; } }
+        .animate { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        .animate.visible { opacity: 1; transform: translateY(0); }
+        .animate-delay-1 { transition-delay: 0.1s; }
+        .animate-delay-2 { transition-delay: 0.2s; }
+        .animate-delay-3 { transition-delay: 0.3s; }
+        .animate-delay-4 { transition-delay: 0.4s; }
+        .animate-delay-5 { transition-delay: 0.5s; }
+
+        /* ========== NAVIGATION ========== */
         nav {
-            position: fixed; top: 0; width: 100%; background: rgba(26, 58, 92, 0.95);
-            backdrop-filter: blur(10px); z-index: 1000; padding: 0 5%;
-            display: flex; justify-content: space-between; align-items: center; height: 70px;
+            position: fixed; top: 0; width: 100%; z-index: 1000; padding: 0 5%;
+            display: flex; justify-content: space-between; align-items: center; height: 72px;
+            background: transparent; transition: all 0.4s;
         }
-        .logo { color: var(--white); font-size: 1.5rem; font-weight: 700; text-decoration: none; }
+        nav.scrolled { background: rgba(13, 31, 51, 0.95); backdrop-filter: blur(20px); box-shadow: 0 4px 30px rgba(0,0,0,0.15); }
+        .logo { color: var(--white); font-size: 1.5rem; font-weight: 800; text-decoration: none; letter-spacing: -0.5px; }
         .logo span { color: var(--accent); }
-        .nav-links { display: flex; list-style: none; gap: 30px; }
-        .nav-links a { color: var(--white); text-decoration: none; font-size: 0.95rem; transition: color 0.3s; }
-        .nav-links a:hover { color: var(--accent); }
-        .menu-toggle { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
-        .menu-toggle span { width: 25px; height: 3px; background: var(--white); transition: 0.3s; }
+        .nav-links { display: flex; list-style: none; gap: 32px; align-items: center; }
+        .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: all 0.3s; position: relative; }
+        .nav-links a:hover { color: var(--white); }
+        .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--accent); transition: width 0.3s; }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-cta { background: var(--accent); color: var(--white) !important; padding: 10px 24px; border-radius: 8px; font-weight: 600; }
+        .nav-cta::after { display: none !important; }
+        .nav-cta:hover { background: var(--accent-dark); transform: translateY(-1px); }
+        .menu-toggle { display: none; cursor: pointer; flex-direction: column; gap: 5px; background: none; border: none; padding: 5px; }
+        .menu-toggle span { width: 24px; height: 2.5px; background: var(--white); transition: 0.3s; border-radius: 2px; display: block; }
 
-        /* Hero */
+        /* ========== HERO ========== */
         .hero {
             min-height: 100vh; display: flex; align-items: center; justify-content: center;
-            background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 50%, #2a5a8c 100%);
-            color: var(--white); text-align: center; padding: 100px 5% 60px;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 30%, var(--primary) 60%, var(--primary-light) 100%);
+            color: var(--white); text-align: center; padding: 120px 5% 80px;
             position: relative; overflow: hidden;
         }
-        .hero::before {
-            content: ''; position: absolute; top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: radial-gradient(circle at 30% 70%, rgba(232, 151, 62, 0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+        .hero-particles { position: absolute; inset: 0; overflow: hidden; }
+        .hero-particles .p {
+            position: absolute; border-radius: 50%; opacity: 0.15;
         }
-        .hero-content { position: relative; max-width: 800px; }
-        .hero h1 { font-size: 3.5rem; margin-bottom: 10px; font-weight: 800; }
+        .hero-particles .p:nth-child(1) { width: 300px; height: 300px; background: var(--accent); top: 10%; left: -5%; animation: particle1 20s infinite; }
+        .hero-particles .p:nth-child(2) { width: 200px; height: 200px; background: var(--primary-light); bottom: 10%; right: -3%; animation: particle2 15s infinite; }
+        .hero-particles .p:nth-child(3) { width: 150px; height: 150px; background: var(--accent); top: 50%; left: 50%; animation: particle1 25s infinite reverse; }
+        .hero-particles .p:nth-child(4) { width: 100px; height: 100px; background: #fff; top: 20%; right: 20%; animation: particle2 18s infinite; }
+        .hero-content { position: relative; max-width: 900px; z-index: 1; }
+        .hero-badge { display: inline-block; background: rgba(232,151,62,0.15); border: 1px solid rgba(232,151,62,0.3); color: var(--accent); padding: 8px 20px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; margin-bottom: 30px; letter-spacing: 0.5px; }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: 4.5rem; margin-bottom: 10px; font-weight: 900; line-height: 1.1; letter-spacing: -1px; }
         .hero h1 span { color: var(--accent); }
-        .hero .tagline { font-size: 1.3rem; opacity: 0.9; margin-bottom: 15px; }
-        .hero p { font-size: 1.1rem; opacity: 0.8; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; }
-        .btn {
-            display: inline-block; padding: 15px 40px; border-radius: 50px; font-size: 1rem;
-            font-weight: 600; text-decoration: none; transition: all 0.3s; cursor: pointer; border: none;
-        }
-        .btn-primary { background: var(--accent); color: var(--white); }
-        .btn-primary:hover { background: #d4831a; transform: translateY(-2px); box-shadow: 0 10px 30px rgba(232, 151, 62, 0.4); }
-        .btn-outline { border: 2px solid var(--white); color: var(--white); margin-left: 15px; background: transparent; }
-        .btn-outline:hover { background: var(--white); color: var(--primary); }
+        .hero .tagline { font-size: 1.5rem; font-weight: 300; opacity: 0.9; margin-bottom: 20px; }
+        .hero .desc { font-size: 1.1rem; opacity: 0.7; margin-bottom: 45px; max-width: 650px; margin-left: auto; margin-right: auto; line-height: 1.8; }
+        .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .btn { display: inline-flex; align-items: center; gap: 8px; padding: 16px 36px; border-radius: 12px; font-size: 1rem; font-weight: 600; text-decoration: none; transition: all 0.3s; cursor: pointer; border: none; font-family: inherit; }
+        .btn-primary { background: var(--accent); color: var(--white); box-shadow: 0 4px 20px rgba(232,151,62,0.3); }
+        .btn-primary:hover { background: var(--accent-dark); transform: translateY(-3px); box-shadow: 0 8px 30px rgba(232,151,62,0.4); }
+        .btn-outline-light { border: 2px solid rgba(255,255,255,0.4); color: var(--white); background: transparent; }
+        .btn-outline-light:hover { background: rgba(255,255,255,0.1); border-color: var(--white); }
+        .hero-stats { display: flex; justify-content: center; gap: 60px; margin-top: 70px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); }
+        .hero-stat { text-align: center; }
+        .hero-stat .num { font-size: 2rem; font-weight: 800; color: var(--accent); }
+        .hero-stat .lbl { font-size: 0.85rem; opacity: 0.6; margin-top: 4px; }
 
-        /* Sections */
-        section { padding: 100px 5%; }
-        .section-title { text-align: center; margin-bottom: 60px; }
-        .section-title h2 { font-size: 2.5rem; color: var(--primary); margin-bottom: 15px; }
-        .section-title p { color: #666; font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
-        .section-title .divider { width: 60px; height: 4px; background: var(--accent); margin: 15px auto 0; border-radius: 2px; }
+        /* ========== SECTIONS COMMON ========== */
+        section { padding: 120px 5%; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 70px; }
+        .section-label { display: inline-block; background: rgba(232,151,62,0.1); color: var(--accent); padding: 6px 18px; border-radius: 50px; font-size: 0.8rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 16px; }
+        .section-header h2 { font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--primary); margin-bottom: 18px; line-height: 1.2; }
+        .section-header p { color: var(--text-light); font-size: 1.15rem; max-width: 650px; margin: 0 auto; }
 
-        /* About */
-        .about { background: var(--light); }
-        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; max-width: 1200px; margin: 0 auto; align-items: center; }
-        .about-text h3 { font-size: 1.8rem; color: var(--primary); margin-bottom: 20px; }
-        .about-text p { margin-bottom: 15px; color: #555; }
-        .about-visual {
-            background: linear-gradient(135deg, var(--primary), #2a5a8c);
-            border-radius: 20px; padding: 50px; color: var(--white); text-align: center;
-            position: relative; overflow: hidden;
+        /* ========== ABOUT / OVERVIEW ========== */
+        .about { background: var(--white); }
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+        .about-content { }
+        .about-content .label { display: inline-block; background: rgba(232,151,62,0.1); color: var(--accent); padding: 6px 18px; border-radius: 50px; font-size: 0.8rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 20px; }
+        .about-content h2 { font-family: 'Playfair Display', serif; font-size: 2.8rem; color: var(--primary); margin-bottom: 24px; line-height: 1.2; }
+        .about-content p { color: var(--text-light); margin-bottom: 18px; font-size: 1.05rem; }
+        .about-content .highlight { background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: var(--white); padding: 24px 28px; border-radius: 16px; margin: 25px 0; font-weight: 500; font-size: 1.05rem; line-height: 1.7; }
+        .about-visual { position: relative; }
+        .about-card-stack { position: relative; min-height: 500px; }
+        .about-float-card {
+            position: absolute; background: var(--white); border-radius: 16px; padding: 28px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08); border: 1px solid #eef;
         }
-        .about-visual::after {
-            content: ''; position: absolute; top: -30px; right: -30px;
-            width: 150px; height: 150px; border-radius: 50%;
-            background: rgba(232, 151, 62, 0.2);
-        }
-        .about-visual .icon { font-size: 4rem; margin-bottom: 20px; }
-        .about-visual h3 { font-size: 1.5rem; margin-bottom: 10px; }
+        .about-float-card.card-1 { top: 0; left: 0; right: 30px; z-index: 3; animation: float 6s ease-in-out infinite; }
+        .about-float-card.card-2 { top: 160px; left: 30px; right: 0; z-index: 2; animation: float 6s ease-in-out infinite 1s; }
+        .about-float-card.card-3 { top: 320px; left: 15px; right: 15px; z-index: 1; animation: float 6s ease-in-out infinite 2s; }
+        .about-float-card .card-icon { width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 15px; color: var(--white); }
+        .about-float-card .card-icon.blue { background: linear-gradient(135deg, var(--primary), var(--primary-light)); }
+        .about-float-card .card-icon.orange { background: linear-gradient(135deg, var(--accent), var(--accent-dark)); }
+        .about-float-card .card-icon.green { background: linear-gradient(135deg, var(--green), var(--green-dark)); }
+        .about-float-card h4 { color: var(--primary); font-size: 1.1rem; margin-bottom: 6px; }
+        .about-float-card p { color: var(--text-light); font-size: 0.9rem; line-height: 1.6; }
 
-        /* Features */
-        .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; max-width: 1200px; margin: 0 auto; }
+        /* ========== PRODUCT SHOWCASE ========== */
+        .products { background: var(--light); }
+        .products-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 20px; }
+        .product-item {
+            background: var(--white); border-radius: 16px; padding: 30px 20px; text-align: center;
+            transition: all 0.4s; box-shadow: 0 4px 15px rgba(0,0,0,0.04); border: 1px solid #eef;
+            cursor: default;
+        }
+        .product-item:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); border-color: var(--accent); }
+        .product-emoji { font-size: 3rem; margin-bottom: 15px; display: block; }
+        .product-item h4 { color: var(--primary); font-size: 0.95rem; margin-bottom: 4px; }
+        .product-item p { color: var(--text-muted); font-size: 0.8rem; }
+
+        /* ========== FEATURES ========== */
+        .features { background: var(--white); }
+        .features-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
         .feature-card {
-            background: var(--white); padding: 40px 30px; border-radius: 15px;
-            text-align: center; transition: all 0.3s;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.06); border: 1px solid #eee;
+            display: flex; gap: 24px; background: var(--lighter); padding: 36px; border-radius: 20px;
+            transition: all 0.4s; border: 1px solid transparent;
         }
-        .feature-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-        .feature-icon {
-            width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 25px;
-            display: flex; align-items: center; justify-content: center; font-size: 2rem;
-            background: linear-gradient(135deg, var(--primary), #2a5a8c); color: var(--white);
+        .feature-card:hover { background: var(--white); border-color: rgba(232,151,62,0.2); box-shadow: 0 20px 50px rgba(0,0,0,0.06); transform: translateY(-4px); }
+        .feature-num {
+            flex-shrink: 0; width: 52px; height: 52px; border-radius: 14px; display: flex;
+            align-items: center; justify-content: center; font-size: 1.2rem; font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: var(--white);
         }
-        .feature-card h3 { color: var(--primary); margin-bottom: 12px; font-size: 1.15rem; }
-        .feature-card p { color: #666; font-size: 0.95rem; }
+        .feature-card h3 { color: var(--primary); font-size: 1.2rem; margin-bottom: 8px; }
+        .feature-card p { color: var(--text-light); font-size: 0.95rem; }
 
-        /* Benefits */
+        /* ========== COMPETITIVE ADVANTAGES ========== */
+        .advantages { background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%); color: var(--white); }
+        .advantages .section-header h2 { color: var(--white); }
+        .advantages .section-header p { color: rgba(255,255,255,0.6); }
+        .advantages .section-label { background: rgba(232,151,62,0.2); }
+        .adv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .adv-card {
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px; padding: 36px 28px; transition: all 0.4s; position: relative; overflow: hidden;
+        }
+        .adv-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(to right, var(--accent), transparent); opacity: 0; transition: opacity 0.4s;
+        }
+        .adv-card:hover { background: rgba(255,255,255,0.08); transform: translateY(-5px); }
+        .adv-card:hover::before { opacity: 1; }
+        .adv-num { font-size: 3rem; font-weight: 900; color: rgba(232,151,62,0.2); margin-bottom: 15px; line-height: 1; }
+        .adv-card h3 { font-size: 1.15rem; margin-bottom: 12px; color: var(--white); }
+        .adv-card p { color: rgba(255,255,255,0.6); font-size: 0.92rem; }
+
+        /* ========== BENEFITS ========== */
         .benefits { background: var(--light); }
-        .benefits-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; max-width: 1000px; margin: 0 auto; }
-        .benefit-item {
-            display: flex; gap: 20px; padding: 30px; background: var(--white);
-            border-radius: 12px; box-shadow: 0 3px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s;
+        .benefits-main { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .benefits-list { display: flex; flex-direction: column; gap: 20px; }
+        .benefit-row {
+            display: flex; gap: 20px; padding: 24px; background: var(--white);
+            border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            transition: all 0.3s; border: 1px solid transparent;
         }
-        .benefit-item:hover { transform: translateX(5px); }
+        .benefit-row:hover { border-color: var(--accent); box-shadow: 0 8px 30px rgba(0,0,0,0.08); transform: translateX(6px); }
         .benefit-icon {
-            flex-shrink: 0; width: 50px; height: 50px; border-radius: 12px;
-            background: var(--accent); color: var(--white); display: flex;
-            align-items: center; justify-content: center; font-size: 1.3rem;
+            flex-shrink: 0; width: 52px; height: 52px; border-radius: 14px;
+            display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: var(--white);
         }
-        .benefit-item h4 { color: var(--primary); margin-bottom: 5px; }
-        .benefit-item p { color: #666; font-size: 0.9rem; }
+        .benefit-icon.b1 { background: linear-gradient(135deg, #e85d5d, #c0392b); }
+        .benefit-icon.b2 { background: linear-gradient(135deg, var(--accent), var(--accent-dark)); }
+        .benefit-icon.b3 { background: linear-gradient(135deg, var(--primary), var(--primary-light)); }
+        .benefit-icon.b4 { background: linear-gradient(135deg, var(--green), var(--green-dark)); }
+        .benefit-row h4 { color: var(--primary); font-size: 1.05rem; margin-bottom: 4px; }
+        .benefit-row p { color: var(--text-light); font-size: 0.9rem; }
+        .benefits-visual {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 24px; padding: 50px 40px; color: var(--white); position: relative; overflow: hidden;
+        }
+        .benefits-visual::before {
+            content: ''; position: absolute; top: -60px; right: -60px; width: 200px; height: 200px;
+            border-radius: 50%; background: rgba(232,151,62,0.2);
+        }
+        .benefits-visual::after {
+            content: ''; position: absolute; bottom: -40px; left: -40px; width: 150px; height: 150px;
+            border-radius: 50%; background: rgba(255,255,255,0.05);
+        }
+        .benefits-visual h3 { font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 20px; position: relative; z-index: 1; }
+        .benefits-visual p { opacity: 0.85; position: relative; z-index: 1; margin-bottom: 12px; font-size: 1.05rem; }
+        .benefits-visual .quote { font-style: italic; opacity: 0.7; border-left: 3px solid var(--accent); padding-left: 18px; margin-top: 30px; position: relative; z-index: 1; }
 
-        /* How it works */
+        /* ========== HOW IT WORKS ========== */
         .how-it-works { background: var(--white); }
-        .steps { display: flex; justify-content: center; gap: 40px; max-width: 1100px; margin: 0 auto; position: relative; }
-        .step { text-align: center; flex: 1; position: relative; }
-        .step-number {
-            width: 70px; height: 70px; border-radius: 50%; background: var(--primary);
-            color: var(--white); font-size: 1.5rem; font-weight: 700;
+        .steps-container { position: relative; max-width: 1000px; margin: 0 auto; }
+        .steps-line { position: absolute; top: 40px; left: 60px; right: 60px; height: 3px; background: linear-gradient(to right, var(--primary), var(--accent), var(--green)); z-index: 0; }
+        .steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; position: relative; z-index: 1; }
+        .step-card { text-align: center; }
+        .step-num {
+            width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 24px;
             display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 20px; position: relative; z-index: 1;
+            font-size: 1.5rem; font-weight: 800; color: var(--white);
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            box-shadow: 0 8px 25px rgba(26,58,92,0.3); position: relative;
         }
-        .step h3 { color: var(--primary); margin-bottom: 8px; }
-        .step p { color: #666; font-size: 0.9rem; }
-        .steps::before {
-            content: ''; position: absolute; top: 35px; left: 15%; right: 15%;
-            height: 3px; background: linear-gradient(to right, var(--primary), var(--accent));
-            z-index: 0;
-        }
+        .step-card:nth-child(2) .step-num { background: linear-gradient(135deg, var(--accent), var(--accent-dark)); box-shadow: 0 8px 25px rgba(232,151,62,0.3); }
+        .step-card:nth-child(3) .step-num { background: linear-gradient(135deg, var(--green), var(--green-dark)); box-shadow: 0 8px 25px rgba(42,140,90,0.3); }
+        .step-card:nth-child(4) .step-num { background: linear-gradient(135deg, var(--purple), #5a4bd1); box-shadow: 0 8px 25px rgba(108,92,231,0.3); }
+        .step-card h3 { color: var(--primary); margin-bottom: 10px; font-size: 1.15rem; }
+        .step-card p { color: var(--text-light); font-size: 0.9rem; padding: 0 10px; }
 
-        /* Pricing */
+        /* ========== MARKET ANALYSIS ========== */
+        .market { background: var(--lighter); }
+        .market-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 50px; }
+        .market-card {
+            background: var(--white); border-radius: 20px; padding: 36px; border: 1px solid #eef;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04); transition: all 0.3s;
+        }
+        .market-card:hover { box-shadow: 0 12px 35px rgba(0,0,0,0.08); }
+        .market-card .tag { display: inline-block; padding: 4px 14px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px; }
+        .tag-blue { background: rgba(26,58,92,0.08); color: var(--primary); }
+        .tag-orange { background: rgba(232,151,62,0.1); color: var(--accent); }
+        .tag-green { background: rgba(42,140,90,0.1); color: var(--green); }
+        .tag-purple { background: rgba(108,92,231,0.1); color: var(--purple); }
+        .market-card h3 { color: var(--primary); font-size: 1.2rem; margin-bottom: 12px; }
+        .market-card p { color: var(--text-light); font-size: 0.95rem; }
+        .market-card ul { list-style: none; margin-top: 12px; }
+        .market-card ul li { padding: 6px 0; color: var(--text-light); font-size: 0.9rem; display: flex; align-items: flex-start; gap: 10px; }
+        .market-card ul li::before { content: '\2022'; color: var(--accent); font-weight: 700; font-size: 1.2rem; line-height: 1.4; }
+        .target-market {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 24px; padding: 50px; color: var(--white);
+        }
+        .target-market h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 20px; }
+        .target-chips { display: flex; flex-wrap: wrap; gap: 12px; }
+        .chip {
+            background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+            padding: 10px 22px; border-radius: 50px; font-size: 0.9rem; color: var(--white);
+            transition: all 0.3s;
+        }
+        .chip:hover { background: rgba(255,255,255,0.2); transform: translateY(-2px); }
+
+        /* ========== REVENUE MODEL ========== */
+        .revenue { background: var(--white); }
+        .revenue-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .revenue-card {
+            background: var(--lighter); border-radius: 20px; padding: 32px 28px;
+            border: 1px solid #eef; transition: all 0.4s; position: relative; overflow: hidden;
+        }
+        .revenue-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--accent); opacity: 0; transition: opacity 0.3s;
+        }
+        .revenue-card:hover { border-color: rgba(232,151,62,0.3); box-shadow: 0 12px 35px rgba(0,0,0,0.06); }
+        .revenue-card:hover::before { opacity: 1; }
+        .revenue-card .rev-icon { font-size: 2rem; margin-bottom: 15px; display: block; }
+        .revenue-card h3 { color: var(--primary); font-size: 1.1rem; margin-bottom: 10px; }
+        .revenue-card p { color: var(--text-light); font-size: 0.9rem; }
+        .revenue-card .rev-tag { display: inline-block; margin-top: 12px; padding: 4px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; }
+        .rev-tag-main { background: rgba(232,151,62,0.1); color: var(--accent); }
+        .rev-tag-sub { background: rgba(26,58,92,0.06); color: var(--primary); }
+
+        /* ========== PRICING ========== */
         .pricing { background: var(--light); }
-        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 1000px; margin: 0 auto; }
+        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; max-width: 1100px; margin: 0 auto; }
         .pricing-card {
-            background: var(--white); border-radius: 15px; padding: 40px 30px;
-            text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.06);
-            transition: transform 0.3s; border: 2px solid transparent;
+            background: var(--white); border-radius: 24px; padding: 44px 32px; text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.04); transition: all 0.4s;
+            border: 2px solid transparent; position: relative;
         }
-        .pricing-card.featured { border-color: var(--accent); transform: scale(1.05); }
-        .pricing-card:hover { transform: scale(1.03); }
-        .pricing-card.featured:hover { transform: scale(1.07); }
-        .pricing-card .plan-name { font-size: 1.3rem; color: var(--primary); font-weight: 700; margin-bottom: 5px; }
-        .pricing-card .plan-desc { color: #888; font-size: 0.9rem; margin-bottom: 25px; }
-        .pricing-card .plan-price { font-size: 2.5rem; font-weight: 800; color: var(--primary); margin-bottom: 25px; }
-        .pricing-card .plan-price span { font-size: 1rem; font-weight: 400; color: #888; }
-        .pricing-card ul { list-style: none; text-align: left; margin-bottom: 30px; }
-        .pricing-card ul li { padding: 8px 0; color: #555; font-size: 0.9rem; border-bottom: 1px solid #f0f0f0; }
-        .pricing-card ul li::before { content: '\2713'; color: var(--accent); font-weight: 700; margin-right: 10px; }
-        .badge {
-            display: inline-block; background: var(--accent); color: var(--white);
-            padding: 4px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-bottom: 15px;
-        }
+        .pricing-card.featured { border-color: var(--accent); box-shadow: 0 20px 50px rgba(232,151,62,0.15); }
+        .pricing-card:hover { transform: translateY(-8px); box-shadow: 0 25px 50px rgba(0,0,0,0.1); }
+        .pricing-badge { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, var(--accent), var(--accent-dark)); color: var(--white); padding: 6px 24px; border-radius: 50px; font-size: 0.8rem; font-weight: 700; }
+        .pricing-card .plan-icon { font-size: 2.5rem; margin-bottom: 15px; display: block; }
+        .pricing-card .plan-name { font-size: 1.4rem; color: var(--primary); font-weight: 800; margin-bottom: 6px; }
+        .pricing-card .plan-desc { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 28px; }
+        .pricing-card .plan-price { font-size: 3rem; font-weight: 900; color: var(--primary); margin-bottom: 30px; line-height: 1; }
+        .pricing-card .plan-price sub { font-size: 1rem; font-weight: 400; color: var(--text-muted); }
+        .pricing-card ul { list-style: none; text-align: left; margin-bottom: 32px; }
+        .pricing-card ul li { padding: 10px 0; color: var(--text-light); font-size: 0.92rem; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; gap: 10px; }
+        .check { color: var(--green); font-weight: 700; font-size: 1.1rem; }
+        .btn-pricing { width: 100%; justify-content: center; }
 
-        /* Milestones */
+        /* ========== LOCATION ========== */
+        .location { background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 40%, var(--primary) 100%); color: var(--white); position: relative; overflow: hidden; }
+        .location::before {
+            content: ''; position: absolute; inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .location .section-header h2 { color: var(--white); }
+        .location .section-header p { color: rgba(255,255,255,0.6); }
+        .location .section-label { background: rgba(232,151,62,0.2); }
+        .location-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; position: relative; z-index: 1; }
+        .location-text h3 { font-family: 'Playfair Display', serif; font-size: 2.2rem; margin-bottom: 20px; }
+        .location-text p { opacity: 0.75; margin-bottom: 15px; font-size: 1.05rem; }
+        .location-features { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 30px; }
+        .loc-feat { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); padding: 20px; border-radius: 14px; text-align: center; }
+        .loc-feat .val { font-size: 1.8rem; font-weight: 800; color: var(--accent); }
+        .loc-feat .lbl { font-size: 0.8rem; opacity: 0.6; margin-top: 4px; }
+        .location-map {
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px; padding: 40px; text-align: center;
+        }
+        .map-pin { font-size: 4rem; margin-bottom: 20px; display: block; }
+        .location-map h4 { font-size: 1.3rem; margin-bottom: 8px; }
+        .location-map p { opacity: 0.6; font-size: 0.95rem; }
+        .location-map .advantages-list { text-align: left; margin-top: 24px; }
+        .location-map .advantages-list li { padding: 8px 0; font-size: 0.9rem; opacity: 0.75; display: flex; align-items: center; gap: 10px; list-style: none; }
+        .location-map .advantages-list li::before { content: '\2713'; color: var(--accent); font-weight: 700; }
+
+        /* ========== MILESTONES ========== */
         .milestones { background: var(--white); }
-        .timeline { max-width: 700px; margin: 0 auto; position: relative; padding-left: 40px; }
-        .timeline::before {
-            content: ''; position: absolute; left: 15px; top: 0; bottom: 0;
-            width: 3px; background: linear-gradient(to bottom, var(--primary), var(--accent));
+        .roadmap { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 0; position: relative; }
+        .roadmap::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 3px; background: linear-gradient(to bottom, var(--primary), var(--accent), var(--green)); transform: translateX(-50%); }
+        .milestone {
+            padding: 30px; position: relative;
         }
-        .timeline-item { position: relative; margin-bottom: 35px; }
-        .timeline-item::before {
-            content: ''; position: absolute; left: -33px; top: 5px;
-            width: 14px; height: 14px; border-radius: 50%;
-            background: var(--accent); border: 3px solid var(--white);
-            box-shadow: 0 0 0 3px var(--accent);
+        .milestone:nth-child(odd) { text-align: right; padding-right: 60px; }
+        .milestone:nth-child(even) { padding-left: 60px; grid-column: 2; }
+        .milestone::after {
+            content: ''; position: absolute; top: 38px; width: 16px; height: 16px;
+            border-radius: 50%; background: var(--accent); border: 4px solid var(--white);
+            box-shadow: 0 0 0 3px var(--accent), 0 4px 10px rgba(0,0,0,0.15);
         }
-        .timeline-item .year { font-weight: 700; color: var(--accent); font-size: 0.9rem; }
-        .timeline-item h4 { color: var(--primary); margin: 3px 0; }
-        .timeline-item p { color: #666; font-size: 0.9rem; }
+        .milestone:nth-child(odd)::after { right: -8px; }
+        .milestone:nth-child(even)::after { left: -8px; }
+        .milestone .m-date { color: var(--accent); font-weight: 700; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; }
+        .milestone h4 { color: var(--primary); font-size: 1.2rem; margin: 6px 0; }
+        .milestone p { color: var(--text-light); font-size: 0.9rem; }
+        .milestone .m-tag { display: inline-block; margin-top: 8px; padding: 3px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; }
+        .m-tag-done { background: rgba(42,140,90,0.1); color: var(--green); }
+        .m-tag-progress { background: rgba(232,151,62,0.1); color: var(--accent); }
+        .m-tag-upcoming { background: rgba(26,58,92,0.06); color: var(--primary); }
+        .long-term { max-width: 900px; margin: 50px auto 0; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .lt-card {
+            background: var(--lighter); border-radius: 20px; padding: 32px; border: 1px solid #eef;
+        }
+        .lt-card h4 { color: var(--primary); margin-bottom: 8px; font-size: 1.1rem; }
+        .lt-card p { color: var(--text-light); font-size: 0.9rem; }
 
-        /* Team */
+        /* ========== TEAM ========== */
         .team { background: var(--light); }
-        .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 900px; margin: 0 auto; }
+        .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 1000px; margin: 0 auto 50px; }
         .team-card {
-            background: var(--white); border-radius: 15px; padding: 40px 25px;
-            text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+            background: var(--white); border-radius: 24px; padding: 44px 28px 36px;
+            text-align: center; box-shadow: 0 5px 25px rgba(0,0,0,0.04);
+            transition: all 0.4s; border: 1px solid transparent; position: relative;
         }
+        .team-card:hover { transform: translateY(-8px); box-shadow: 0 20px 50px rgba(0,0,0,0.08); border-color: var(--accent); }
         .team-avatar {
-            width: 90px; height: 90px; border-radius: 50%; margin: 0 auto 20px;
+            width: 100px; height: 100px; border-radius: 50%; margin: 0 auto 20px;
             display: flex; align-items: center; justify-content: center;
-            font-size: 2rem; font-weight: 700; color: var(--white);
+            font-size: 2rem; font-weight: 800; color: var(--white);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
-        .team-card:nth-child(1) .team-avatar { background: linear-gradient(135deg, var(--primary), #2a5a8c); }
-        .team-card:nth-child(2) .team-avatar { background: linear-gradient(135deg, var(--accent), #d4831a); }
-        .team-card:nth-child(3) .team-avatar { background: linear-gradient(135deg, #2a8c5a, #1a6b40); }
-        .team-card h3 { color: var(--primary); font-size: 1.1rem; margin-bottom: 5px; }
-        .team-card .role { color: var(--accent); font-weight: 600; font-size: 0.85rem; margin-bottom: 12px; }
-        .team-card p { color: #666; font-size: 0.85rem; }
+        .team-card:nth-child(1) .team-avatar { background: linear-gradient(135deg, var(--primary), var(--primary-light)); }
+        .team-card:nth-child(2) .team-avatar { background: linear-gradient(135deg, var(--accent), var(--accent-dark)); }
+        .team-card:nth-child(3) .team-avatar { background: linear-gradient(135deg, var(--green), var(--green-dark)); }
+        .team-card h3 { color: var(--primary); font-size: 1.15rem; margin-bottom: 4px; }
+        .team-card .role { color: var(--accent); font-weight: 700; font-size: 0.85rem; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .team-card p { color: var(--text-light); font-size: 0.88rem; }
 
-        /* Location */
-        .location { background: linear-gradient(135deg, var(--dark), var(--primary)); color: var(--white); text-align: center; }
-        .location h2 { color: var(--white); }
-        .location .section-title p { color: rgba(255,255,255,0.7); }
-        .location-content { max-width: 800px; margin: 0 auto; }
-        .location-stats { display: flex; justify-content: center; gap: 60px; margin-top: 40px; }
-        .stat { text-align: center; }
-        .stat .number { font-size: 2.5rem; font-weight: 800; color: var(--accent); }
-        .stat .label { font-size: 0.9rem; opacity: 0.8; }
+        /* Org Chart */
+        .org-chart { max-width: 900px; margin: 0 auto; }
+        .org-chart h3 { text-align: center; font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--primary); margin-bottom: 30px; }
+        .org-departments { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+        .org-dept {
+            background: var(--white); border-radius: 16px; padding: 24px 16px;
+            text-align: center; border: 1px solid #eef; transition: all 0.3s;
+        }
+        .org-dept:hover { border-color: var(--accent); box-shadow: 0 8px 25px rgba(0,0,0,0.06); }
+        .org-dept .dept-icon { font-size: 2rem; margin-bottom: 10px; display: block; }
+        .org-dept h4 { color: var(--primary); font-size: 0.9rem; margin-bottom: 6px; }
+        .org-dept p { color: var(--text-muted); font-size: 0.78rem; }
 
-        /* CTA */
+        /* ========== SALES CHANNELS ========== */
+        .sales { background: var(--white); }
+        .sales-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .sales-card {
+            background: var(--lighter); border-radius: 20px; padding: 32px 24px;
+            border: 1px solid #eef; transition: all 0.4s; text-align: center;
+        }
+        .sales-card:hover { background: var(--white); box-shadow: 0 15px 40px rgba(0,0,0,0.06); transform: translateY(-5px); }
+        .sales-icon { font-size: 2.5rem; margin-bottom: 16px; display: block; }
+        .sales-card h3 { color: var(--primary); font-size: 1.05rem; margin-bottom: 8px; }
+        .sales-card p { color: var(--text-light); font-size: 0.88rem; }
+
+        /* ========== CTA ========== */
         .cta {
-            background: linear-gradient(135deg, var(--accent), #d4831a);
-            text-align: center; color: var(--white); padding: 80px 5%;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark), #c0711a);
+            background-size: 200% 200%; animation: gradientShift 8s ease infinite;
+            text-align: center; color: var(--white); padding: 100px 5%; position: relative; overflow: hidden;
         }
-        .cta h2 { font-size: 2.5rem; margin-bottom: 15px; }
-        .cta p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto; }
-        .btn-white { background: var(--white); color: var(--primary); }
-        .btn-white:hover { background: var(--light); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .cta::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1), transparent 60%);
+        }
+        .cta-content { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+        .cta h2 { font-family: 'Playfair Display', serif; font-size: 3rem; margin-bottom: 18px; }
+        .cta p { font-size: 1.15rem; opacity: 0.9; margin-bottom: 35px; }
+        .btn-white { background: var(--white); color: var(--primary); font-weight: 700; }
+        .btn-white:hover { background: var(--light); transform: translateY(-3px); box-shadow: 0 12px 35px rgba(0,0,0,0.2); }
 
-        /* Footer */
-        footer { background: var(--dark); color: rgba(255,255,255,0.6); padding: 60px 5% 30px; }
-        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; max-width: 1200px; margin: 0 auto; }
-        .footer-brand .logo { font-size: 1.3rem; display: inline-block; margin-bottom: 15px; }
-        .footer-brand p { font-size: 0.9rem; line-height: 1.8; }
-        footer h4 { color: var(--white); margin-bottom: 20px; font-size: 1rem; }
+        /* ========== FOOTER ========== */
+        footer { background: var(--darker); color: rgba(255,255,255,0.5); padding: 80px 5% 30px; }
+        .footer-top { display: grid; grid-template-columns: 2.5fr 1fr 1fr 1fr; gap: 50px; max-width: 1200px; margin: 0 auto; }
+        .footer-brand .logo { font-size: 1.4rem; display: inline-block; margin-bottom: 18px; }
+        .footer-brand p { font-size: 0.9rem; line-height: 1.8; margin-bottom: 20px; }
+        .social-links { display: flex; gap: 12px; }
+        .social-link {
+            width: 40px; height: 40px; border-radius: 10px; background: rgba(255,255,255,0.06);
+            display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.6);
+            text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: all 0.3s;
+        }
+        .social-link:hover { background: var(--accent); color: var(--white); transform: translateY(-2px); }
+        footer h4 { color: var(--white); margin-bottom: 20px; font-size: 0.95rem; font-weight: 700; }
         footer ul { list-style: none; }
-        footer ul li { margin-bottom: 10px; }
-        footer ul a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.9rem; transition: color 0.3s; }
-        footer ul a:hover { color: var(--accent); }
+        footer ul li { margin-bottom: 12px; }
+        footer ul a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.88rem; transition: all 0.3s; }
+        footer ul a:hover { color: var(--accent); padding-left: 4px; }
         .footer-bottom {
-            max-width: 1200px; margin: 40px auto 0; padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.1); text-align: center; font-size: 0.85rem;
+            max-width: 1200px; margin: 50px auto 0; padding-top: 25px;
+            border-top: 1px solid rgba(255,255,255,0.06); text-align: center; font-size: 0.83rem;
+            display: flex; justify-content: space-between; align-items: center;
         }
+        .footer-bottom-links { display: flex; gap: 24px; }
+        .footer-bottom-links a { color: rgba(255,255,255,0.4); text-decoration: none; font-size: 0.83rem; }
+        .footer-bottom-links a:hover { color: var(--accent); }
 
-        /* Responsive */
-        @media (max-width: 968px) {
-            .features-grid { grid-template-columns: repeat(2, 1fr); }
-            .about-grid { grid-template-columns: 1fr; }
-            .pricing-grid { grid-template-columns: 1fr; max-width: 400px; }
-            .pricing-card.featured { transform: none; }
-            .team-grid { grid-template-columns: 1fr; max-width: 350px; }
-            .footer-grid { grid-template-columns: 1fr 1fr; }
-            .steps { flex-direction: column; gap: 30px; }
-            .steps::before { left: 50px; top: 0; bottom: 0; width: 3px; height: auto; right: auto; }
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 1024px) {
+            .features-grid, .adv-grid, .revenue-grid, .sales-grid { grid-template-columns: repeat(2, 1fr); }
+            .products-grid { grid-template-columns: repeat(3, 1fr); }
+            .org-departments { grid-template-columns: repeat(2, 1fr); }
+            .location-grid { grid-template-columns: 1fr; }
         }
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.2rem; }
-            .hero .tagline { font-size: 1rem; }
-            .section-title h2 { font-size: 2rem; }
-            .features-grid { grid-template-columns: 1fr; max-width: 400px; }
-            .benefits-grid { grid-template-columns: 1fr; }
-            .nav-links { display: none; position: absolute; top: 70px; left: 0; width: 100%;
-                background: var(--primary); flex-direction: column; padding: 20px 5%; gap: 15px; }
+            .hero h1 { font-size: 2.8rem; }
+            .hero .tagline { font-size: 1.1rem; }
+            .section-header h2 { font-size: 2.2rem; }
+            .about-grid, .benefits-main, .market-grid { grid-template-columns: 1fr; }
+            .about-card-stack { min-height: auto; }
+            .about-float-card { position: relative !important; top: auto !important; left: auto !important; right: auto !important; margin-bottom: 16px; animation: none !important; }
+            .features-grid, .adv-grid, .revenue-grid, .sales-grid, .pricing-grid { grid-template-columns: 1fr; }
+            .products-grid { grid-template-columns: repeat(3, 1fr); }
+            .steps-grid { grid-template-columns: 1fr 1fr; }
+            .steps-line { display: none; }
+            .roadmap { grid-template-columns: 1fr; }
+            .roadmap::before { left: 20px; }
+            .milestone:nth-child(odd), .milestone:nth-child(even) { text-align: left; padding-left: 50px; padding-right: 20px; grid-column: 1; }
+            .milestone::after { left: 12px !important; right: auto !important; }
+            .team-grid { grid-template-columns: 1fr; max-width: 380px; }
+            .org-departments { grid-template-columns: 1fr 1fr; }
+            .hero-stats { flex-direction: column; gap: 20px; }
+            .long-term { grid-template-columns: 1fr; }
+            .nav-links {
+                display: none; position: absolute; top: 72px; left: 0; width: 100%;
+                background: rgba(13,31,51,0.98); backdrop-filter: blur(20px);
+                flex-direction: column; padding: 24px 5%; gap: 16px;
+            }
             .nav-links.active { display: flex; }
             .menu-toggle { display: flex; }
-            .location-stats { flex-direction: column; gap: 25px; }
-            .footer-grid { grid-template-columns: 1fr; }
-            .btn-outline { margin-left: 0; margin-top: 10px; }
-            .hero .buttons { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+            .footer-top { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; gap: 12px; }
+            .location-features { grid-template-columns: 1fr 1fr; }
+            .pricing-card.featured { box-shadow: 0 10px 30px rgba(232,151,62,0.15); }
+            .hero-buttons { flex-direction: column; align-items: center; }
+        }
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 2.2rem; }
+            .products-grid { grid-template-columns: repeat(2, 1fr); }
+            .steps-grid { grid-template-columns: 1fr; }
+            .location-features { grid-template-columns: 1fr; }
+            section { padding: 80px 5%; }
         }
     </style>
 </head>
 <body>
 
-<!-- Navigation -->
-<nav>
+<!-- ========== NAVIGATION ========== -->
+<nav id="navbar">
     <a href="#" class="logo">Crafted<span>Memento</span></a>
     <ul class="nav-links" id="navLinks">
         <li><a href="#about">About</a></li>
+        <li><a href="#products">Products</a></li>
         <li><a href="#features">Features</a></li>
-        <li><a href="#benefits">Benefits</a></li>
-        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#advantages">Advantages</a></li>
+        <li><a href="#market">Market</a></li>
         <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#roadmap">Roadmap</a></li>
         <li><a href="#team">Team</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="#contact" class="nav-cta">Get Started</a></li>
     </ul>
-    <div class="menu-toggle" onclick="document.getElementById('navLinks').classList.toggle('active')">
+    <button class="menu-toggle" onclick="document.getElementById('navLinks').classList.toggle('active')" aria-label="Toggle menu">
         <span></span><span></span><span></span>
-    </div>
+    </button>
 </nav>
 
-<!-- Hero -->
+<!-- ========== HERO ========== -->
 <section class="hero">
+    <div class="hero-particles">
+        <div class="p"></div><div class="p"></div><div class="p"></div><div class="p"></div>
+    </div>
     <div class="hero-content">
-        <h1>Crafted<span>Memento</span> Creations</h1>
-        <p class="tagline">The Canva of Custom Souvenir Design & Manufacturing</p>
-        <p>A pioneering online centralized platform for tourism businesses to design, manufacture, and ship unique personalized souvenirs - all in one place.</p>
-        <div class="buttons">
-            <a href="#features" class="btn btn-primary">Explore Platform</a>
-            <a href="#contact" class="btn btn-outline">Get Started</a>
+        <div class="hero-badge animate">Victoria, BC, Canada</div>
+        <h1 class="animate animate-delay-1">Crafted<span>Memento</span><br>Creations</h1>
+        <p class="tagline animate animate-delay-2">The "Canva" of Custom Souvenir Design & Manufacturing</p>
+        <p class="desc animate animate-delay-3">A pioneering online centralized platform empowering tourism businesses to design, manufacture, and ship unique personalized souvenirs worldwide &mdash; all in one seamless experience.</p>
+        <div class="hero-buttons animate animate-delay-4">
+            <a href="#features" class="btn btn-primary">Explore Our Platform &rarr;</a>
+            <a href="#contact" class="btn btn-outline-light">Start Designing</a>
+        </div>
+        <div class="hero-stats animate animate-delay-5">
+            <div class="hero-stat">
+                <div class="num" data-count="100">100+</div>
+                <div class="lbl">Design Templates</div>
+            </div>
+            <div class="hero-stat">
+                <div class="num">Global</div>
+                <div class="lbl">Shipping Network</div>
+            </div>
+            <div class="hero-stat">
+                <div class="num">AI</div>
+                <div class="lbl">Powered Design Advice</div>
+            </div>
+            <div class="hero-stat">
+                <div class="num">B2B</div>
+                <div class="lbl">Focused Platform</div>
+            </div>
         </div>
     </div>
 </section>
 
-<!-- About -->
+<!-- ========== ABOUT ========== -->
 <section class="about" id="about">
-    <div class="about-grid">
-        <div class="about-text">
-            <h3>Revolutionizing the Souvenir Industry</h3>
-            <p>CraftedMemento Creations is a pioneering online centralized souvenir design platform that caters specifically to tourism businesses and institutions with souvenir stores looking to create unique, personalized products.</p>
-            <p>Our platform seamlessly integrates design customization, manufacturing, and shipping processes, providing an all-in-one solution for businesses seeking bespoke and memorable merchandise.</p>
-            <p>We aim to be the <strong>"Vistaprint" or "Canva"</strong> in the centralized souvenir design and manufacturing field - empowering businesses worldwide to create souvenirs that truly represent their brand.</p>
-        </div>
-        <div class="about-visual">
-            <div class="icon">&#9881;</div>
-            <h3>Design. Manufacture. Ship.</h3>
-            <p>One integrated platform for all your souvenir needs - from concept to delivery.</p>
+    <div class="container">
+        <div class="about-grid">
+            <div class="about-content animate">
+                <div class="label">About Us</div>
+                <h2>Revolutionizing the Souvenir Industry</h2>
+                <p>CraftedMemento Creations is a pioneering online centralized souvenir design platform that caters specifically to tourism businesses and institutions with souvenir stores looking to create unique, personalized products.</p>
+                <p>Our platform seamlessly integrates <strong>design customization</strong>, <strong>centralized manufacturing</strong>, and <strong>global shipping</strong> processes, providing an all-in-one solution for businesses seeking bespoke and memorable merchandise.</p>
+                <div class="highlight">
+                    We aim to be the <strong>"Vistaprint"</strong> or <strong>"Canva"</strong> in the centralized souvenir design and manufacturing field &mdash; empowering businesses worldwide to create souvenirs that truly represent their brand and captivate their customers.
+                </div>
+                <p>CraftedMemento is not just a service; it's a <strong>creative partner</strong> for tourism businesses globally, bringing personalized design, centralized manufacturing, and global shipping together in one innovative platform.</p>
+            </div>
+            <div class="about-visual animate animate-delay-2">
+                <div class="about-card-stack">
+                    <div class="about-float-card card-1">
+                        <div class="card-icon blue">&#9998;</div>
+                        <h4>Design Customization</h4>
+                        <p>Intuitive online tools to add logos, design shapes representing unique landscapes or characters, and incorporate brand elements.</p>
+                    </div>
+                    <div class="about-float-card card-2">
+                        <div class="card-icon orange">&#9881;</div>
+                        <h4>Centralized Manufacturing</h4>
+                        <p>State-of-the-art factory with cutting-edge molding technologies ensuring consistent quality and cost-effectiveness.</p>
+                    </div>
+                    <div class="about-float-card card-3">
+                        <div class="card-icon green">&#127758;</div>
+                        <h4>Global Distribution</h4>
+                        <p>Comprehensive shipping network delivering directly to souvenir stores, from local boutiques to international chains.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
-<!-- Features -->
+<!-- ========== PRODUCT SHOWCASE ========== -->
+<section class="products" id="products">
+    <div class="container">
+        <div class="section-header animate">
+            <div class="section-label">Product Range</div>
+            <h2>Endless Possibilities for Your Souvenir Store</h2>
+            <p>From edible treats to wearable keepsakes, customize a wide range of products that capture the essence of your destination</p>
+        </div>
+        <div class="products-grid">
+            <div class="product-item animate"><span class="product-emoji">&#127853;</span><h4>Custom Popsicles</h4><p>Shaped & branded</p></div>
+            <div class="product-item animate animate-delay-1"><span class="product-emoji">&#127852;</span><h4>Lollipops</h4><p>Custom molds</p></div>
+            <div class="product-item animate animate-delay-2"><span class="product-emoji">&#128085;</span><h4>Apparel</h4><p>T-shirts & hats</p></div>
+            <div class="product-item animate animate-delay-3"><span class="product-emoji">&#9749;</span><h4>Mugs & Cups</h4><p>Ceramic & travel</p></div>
+            <div class="product-item animate animate-delay-4"><span class="product-emoji">&#128221;</span><h4>Stationery</h4><p>Notebooks & pens</p></div>
+            <div class="product-item animate animate-delay-5"><span class="product-emoji">&#127991;</span><h4>Keychains</h4><p>Metal & acrylic</p></div>
+            <div class="product-item animate"><span class="product-emoji">&#129523;</span><h4>Plush Toys</h4><p>Custom characters</p></div>
+            <div class="product-item animate animate-delay-1"><span class="product-emoji">&#128717;</span><h4>Tote Bags</h4><p>Canvas & eco</p></div>
+            <div class="product-item animate animate-delay-2"><span class="product-emoji">&#127912;</span><h4>Art Prints</h4><p>Posters & cards</p></div>
+            <div class="product-item animate animate-delay-3"><span class="product-emoji">&#129513;</span><h4>Puzzles</h4><p>Custom imagery</p></div>
+            <div class="product-item animate animate-delay-4"><span class="product-emoji">&#127870;</span><h4>Chocolates</h4><p>Branded sweets</p></div>
+            <div class="product-item animate animate-delay-5"><span class="product-emoji">&#128142;</span><h4>Novelty Items</h4><p>Unique gifts</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== KEY FEATURES ========== -->
 <section class="features" id="features">
-    <div class="section-title">
-        <h2>Core Features</h2>
-        <p>Everything you need to create, produce, and deliver custom souvenirs at scale</p>
-        <div class="divider"></div>
-    </div>
-    <div class="features-grid">
-        <div class="feature-card">
-            <div class="feature-icon">&#9998;</div>
-            <h3>Online Design Tool</h3>
-            <p>User-friendly interface to customize souvenirs - from popsicles and lollipops to apparel and novelty items. Add logos, shapes, and unique brand elements effortlessly.</p>
+    <div class="container">
+        <div class="section-header animate">
+            <div class="section-label">Platform Features</div>
+            <h2>Powerful Tools, Seamless Experience</h2>
+            <p>Our integrated platform combines everything you need from creative design to global delivery</p>
         </div>
-        <div class="feature-card">
-            <div class="feature-icon">&#9881;</div>
-            <h3>Centralized Manufacturing</h3>
-            <p>State-of-the-art factory with cutting-edge molding technologies. Consistent quality, efficient timelines, cost-effective and eco-friendly production.</p>
-        </div>
-        <div class="feature-card">
-            <div class="feature-icon">&#128279;</div>
-            <h3>Affiliated Supply Chain</h3>
-            <p>Strong partnerships with quality suppliers, expanding product variety and ensuring the best materials for every unique design.</p>
-        </div>
-        <div class="feature-card">
-            <div class="feature-icon">&#127758;</div>
-            <h3>Global Shipping</h3>
-            <p>Comprehensive shipping network delivering customized products directly to souvenir stores worldwide - from local boutiques to international chains.</p>
+        <div class="features-grid">
+            <div class="feature-card animate">
+                <div class="feature-num">01</div>
+                <div>
+                    <h3>Online Design Tool</h3>
+                    <p>User-friendly interface to customize souvenirs. Add your logos, design shapes representing unique landscapes or characters, and incorporate elements that represent your brand. The intuitive process ensures anyone can create professional designs.</p>
+                </div>
+            </div>
+            <div class="feature-card animate animate-delay-1">
+                <div class="feature-num">02</div>
+                <div>
+                    <h3>Centralized Manufacturing Hub</h3>
+                    <p>State-of-the-art centralized factory equipped with cutting-edge molding and manufacturing technologies. Consistent quality across all products while efficiently managing production timelines with reduced environmental impact.</p>
+                </div>
+            </div>
+            <div class="feature-card animate animate-delay-2">
+                <div class="feature-num">03</div>
+                <div>
+                    <h3>Affiliated Supply Chain</h3>
+                    <p>Strong partnerships with affiliated suppliers guaranteeing access to diverse, high-quality materials. This expands the variety of products available and ensures businesses receive the best materials for their unique designs.</p>
+                </div>
+            </div>
+            <div class="feature-card animate animate-delay-3">
+                <div class="feature-num">04</div>
+                <div>
+                    <h3>Global Shipping Solutions</h3>
+                    <p>Comprehensive shipping network enables businesses to reach customers worldwide. Whether a small boutique in a local tourist hotspot or an international chain, we manage logistics for timely, secure delivery.</p>
+                </div>
+            </div>
+            <div class="feature-card animate animate-delay-4">
+                <div class="feature-num">05</div>
+                <div>
+                    <h3>AI-Powered Data Analysis</h3>
+                    <p>Our unique AI system analyzes data based on design performance, order amounts, and repeat orders. Receive intelligent design advice based on market demands to create souvenirs that will be popular and best-selling.</p>
+                </div>
+            </div>
+            <div class="feature-card animate animate-delay-5">
+                <div class="feature-num">06</div>
+                <div>
+                    <h3>Rapid Design Iteration</h3>
+                    <p>Constantly reinvent and recreate souvenirs that meet market demand based on real-time feedback in a very cost-effective way. No more boring, never-changing designs &mdash; stay fresh and relevant.</p>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
-<!-- Benefits -->
+<!-- ========== COMPETITIVE ADVANTAGES ========== -->
+<section class="advantages" id="advantages">
+    <div class="container">
+        <div class="section-header animate">
+            <div class="section-label">Why We Win</div>
+            <h2>Competitive Advantages</h2>
+            <p>What sets CraftedMemento apart in the souvenir industry</p>
+        </div>
+        <div class="adv-grid">
+            <div class="adv-card animate">
+                <div class="adv-num">01</div>
+                <h3>Integrated End-to-End Platform</h3>
+                <p>One-stop-shop integrating design, manufacturing, and distribution. Eliminates coordinating with multiple suppliers, enhances efficiency, and reduces lead times dramatically.</p>
+            </div>
+            <div class="adv-card animate animate-delay-1">
+                <div class="adv-num">02</div>
+                <h3>AI-Powered Design Intelligence</h3>
+                <p>Our AI analyzes design performance, order volumes, and repeat orders to provide personalized guidance that optimizes product offerings for greater market appeal and success.</p>
+            </div>
+            <div class="adv-card animate animate-delay-2">
+                <div class="adv-num">03</div>
+                <h3>Global E-commerce Reach</h3>
+                <p>Global shipping capabilities paired with an online e-commerce platform, catering to the evolving preference for online shopping in an industry where traditional methods still prevail.</p>
+            </div>
+            <div class="adv-card animate animate-delay-3">
+                <div class="adv-num">04</div>
+                <h3>Cost-Efficient at Scale</h3>
+                <p>Centralized manufacturing leverages economies of scale, offering high-quality customized products at competitive prices &mdash; a significant advantage over dispersed production.</p>
+            </div>
+            <div class="adv-card animate animate-delay-4">
+                <div class="adv-num">05</div>
+                <h3>Sustainability Commitment</h3>
+                <p>Eco-friendly practices through centralized manufacturing that minimizes waste. Meeting growing consumer expectations while positioning as a responsible industry leader.</p>
+            </div>
+            <div class="adv-card animate animate-delay-5">
+                <div class="adv-num">06</div>
+                <h3>First-Mover Innovation</h3>
+                <p>The concept of a centralized online design and manufacturing platform for souvenirs is relatively unique. Our integrated service and e-commerce platform set us apart from traditional suppliers.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== BENEFITS ========== -->
 <section class="benefits" id="benefits">
-    <div class="section-title">
-        <h2>Why Choose CraftedMemento</h2>
-        <p>Unlock competitive advantages for your tourism business</p>
-        <div class="divider"></div>
-    </div>
-    <div class="benefits-grid">
-        <div class="benefit-item">
-            <div class="benefit-icon">&#9733;</div>
-            <div>
-                <h4>Brand Differentiation</h4>
-                <p>Stand out with exclusive, custom-designed souvenirs that reflect your unique identity in the competitive tourism market.</p>
-            </div>
+    <div class="container">
+        <div class="section-header animate">
+            <div class="section-label">Benefits</div>
+            <h2>Built for Tourism Businesses</h2>
+            <p>Transform your souvenir store with our comprehensive platform</p>
         </div>
-        <div class="benefit-item">
-            <div class="benefit-icon">&#36;</div>
-            <div>
-                <h4>Cost-Efficiency</h4>
-                <p>Benefit from economies of scale through centralized manufacturing, reducing costs without compromising quality.</p>
+        <div class="benefits-main">
+            <div class="benefits-list">
+                <div class="benefit-row animate">
+                    <div class="benefit-icon b1">&#9733;</div>
+                    <div>
+                        <h4>Brand Differentiation</h4>
+                        <p>Stand out in the competitive tourism market by offering exclusive, custom-designed souvenirs that reflect the unique identity of each business.</p>
+                    </div>
+                </div>
+                <div class="benefit-row animate animate-delay-1">
+                    <div class="benefit-icon b2">&#36;</div>
+                    <div>
+                        <h4>Cost-Efficiency</h4>
+                        <p>By centralizing manufacturing, businesses benefit from economies of scale, reducing production costs without compromising on quality.</p>
+                    </div>
+                </div>
+                <div class="benefit-row animate animate-delay-2">
+                    <div class="benefit-icon b3">&#9889;</div>
+                    <div>
+                        <h4>Streamlined Process</h4>
+                        <p>From design to delivery, our integrated platform streamlines the entire process, saving businesses time and effort in managing multiple suppliers.</p>
+                    </div>
+                </div>
+                <div class="benefit-row animate animate-delay-3">
+                    <div class="benefit-icon b4">&#127793;</div>
+                    <div>
+                        <h4>Environmental Responsibility</h4>
+                        <p>Our centralized manufacturing approach minimizes waste and promotes sustainability, aligning with the growing demand for eco-friendly practices.</p>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="benefit-item">
-            <div class="benefit-icon">&#9889;</div>
-            <div>
-                <h4>Streamlined Process</h4>
-                <p>From design to delivery, our integrated platform saves time and effort - no more managing multiple suppliers.</p>
-            </div>
-        </div>
-        <div class="benefit-item">
-            <div class="benefit-icon">&#127793;</div>
-            <div>
-                <h4>Environmental Responsibility</h4>
-                <p>Centralized manufacturing minimizes waste and promotes sustainability, aligning with eco-friendly business practices.</p>
-            </div>
-        </div>
-        <div class="benefit-item">
-            <div class="benefit-icon">&#129302;</div>
-            <div>
-                <h4>AI-Powered Design Advice</h4>
-                <p>Our AI analyzes design data, order trends, and repeat orders to provide intelligent suggestions for best-selling products.</p>
-            </div>
-        </div>
-        <div class="benefit-item">
-            <div class="benefit-icon">&#128202;</div>
-            <div>
-                <h4>Data-Driven Decisions</h4>
-                <p>Constantly reinvent souvenirs based on market feedback in a cost-effective way, creating products that truly sell.</p>
+            <div class="benefits-visual animate animate-delay-2">
+                <h3>Your Creative Partner, Globally</h3>
+                <p>CraftedMemento is not just a service &mdash; it's a creative partner for tourism businesses worldwide.</p>
+                <p>We revolutionize the souvenir industry by bringing personalized design, centralized manufacturing, and global shipping together in one innovative platform.</p>
+                <div class="quote">"Businesses can constantly reinvent and recreate souvenirs that meet market demand based on feedback in a very cost-effective way."</div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- How It Works -->
+<!-- ========== HOW IT WORKS ========== -->
 <section class="how-it-works" id="how-it-works">
-    <div class="section-title">
-        <h2>How It Works</h2>
-        <p>From idea to store shelf in four simple steps</p>
-        <div class="divider"></div>
-    </div>
-    <div class="steps">
-        <div class="step">
-            <div class="step-number">1</div>
-            <h3>Design</h3>
-            <p>Use our online tool to create your custom souvenir with your logos, shapes, and brand elements.</p>
+    <div class="container">
+        <div class="section-header animate">
+            <div class="section-label">Process</div>
+            <h2>How It Works</h2>
+            <p>From concept to store shelf in four seamless steps</p>
         </div>
-        <div class="step">
-            <div class="step-number">2</div>
-            <h3>Review</h3>
-            <p>Get AI-powered design advice and optimize your products for market success.</p>
-        </div>
-        <div class="step">
-            <div class="step-number">3</div>
-            <h3>Manufacture</h3>
-            <p>We produce your souvenirs in our centralized factory with consistent quality control.</p>
-        </div>
-        <div class="step">
-            <div class="step-number">4</div>
-            <h3>Deliver</h3>
-            <p>Products are shipped directly to your souvenir store, anywhere in the world.</p>
+        <div class="steps-container">
+            <div class="steps-line"></div>
+            <div class="steps-grid">
+                <div class="step-card animate">
+                    <div class="step-num">1</div>
+                    <h3>Design & Customize</h3>
+                    <p>Use our online design tool or hire a professional designer. Add your logos, custom shapes, brand colors, and unique elements to any product.</p>
+                </div>
+                <div class="step-card animate animate-delay-1">
+                    <div class="step-num">2</div>
+                    <h3>AI Review & Optimize</h3>
+                    <p>Our AI analyzes your design against market data, order trends, and bestselling patterns. Get intelligent suggestions to maximize appeal.</p>
+                </div>
+                <div class="step-card animate animate-delay-2">
+                    <div class="step-num">3</div>
+                    <h3>Manufacture & QC</h3>
+                    <p>Products are manufactured in our centralized factory with cutting-edge molding tech. Consistent quality control at every stage.</p>
+                </div>
+                <div class="step-card animate animate-delay-3">
+                    <div class="step-num">4</div>
+                    <h3>Ship & Deliver</h3>
+                    <p>Global logistics network delivers products directly to your souvenir store, anywhere in the world. Timely, secure, and tracked.</p>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
-<!-- Pricing -->
+<!-- ========== MARKET ANALYSIS ========== -->
+<section class="market" id="market">
+    <div class="container">
+        <div class="section-header animate">
+            <div class="section-label">Market Opportunity</div>
+            <h2>Market Analysis & Trends</h2>
+            <p>Understanding the souvenir industry landscape and our strategic positioning</p>
+        </div>
+        <div class="market-grid">
+            <div class="market-card animate">
+                <span class="tag tag-blue">Industry Overview</span>
+                <h3>Thriving Tourism Souvenir Market</h3>
+                <p>The souvenir industry is a thriving sector within the broader tourism market. As travel trends evolve, there is increasing demand for unique and personalized souvenirs that capture the essence of a destination.</p>
+            </div>
+            <div class="market-card animate animate-delay-1">
+                <span class="tag tag-orange">Market Trends</span>
+                <h3>Key Industry Trends</h3>
+                <ul>
+                    <li>Consumers increasingly seeking personalized & unique products</li>
+                    <li>E-commerce growth transforming souvenir purchasing behavior</li>
+                    <li>AI-driven design and data analytics reshaping product development</li>
+                    <li>Sustainability and eco-friendly practices gaining prominence</li>
+                </ul>
+            </div>
+            <div class="market-card animate animate-delay-2">
+                <span class="tag tag-green">Strengths</span>
+                <h3>Our Strategic Strengths</h3>
+                <ul>
+                    <li>Innovation by combining online design with centralized manufacturing</li>
+                    <li>Cost-effective production through economies of scale</li>
+                    <li>First-mover advantage in centralized souvenir e-commerce</li>
+                    <li>AI-powered design intelligence for market-driven products</li>
+                </ul>
+            </div>
+            <div class="market-card animate animate-delay-3">
+                <span class="tag tag-purple">Opportunities</span>
+                <h3>Growth Opportunities</h3>
+                <ul>
+                    <li>Global reach with integrated design-to-retail solutions</li>
+                    <li>Diversification beyond traditional souvenirs to broader market</li>
+                    <li>Partnerships with tourism boards for co-branded collections</li>
+                    <li>Expansion into North America and European markets</li>
+                </ul>
+            </div>
+        </div>
+        <div class="target-market animate">
+            <h3>Our Target Market</h3>
+            <p style="opacity:0.8; margin-bottom: 24px;">CraftedMemento primarily targets tourism businesses and institutions seeking unique, custom-designed souvenir products:</p>
+            <div class="target-chips">
+                <div class="chip">Local Souvenir Shops</div>
+                <div class="chip">Museum Gift Stores</div>
+                <div class="chip">University Bookshops</div>
+                <div class="chip">Private School Gift Shops</div>
+                <div class="chip">Tourist Attraction Stores</div>
+                <div class="chip">Gift Boutiques</div>
+                <div class="chip">Hotel Gift Shops</div>
+                <div class="chip">National Park Stores</div>
+                <div class="chip">Theme Park Shops</div>
+                <div class="chip">Cultural Heritage Sites</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== REVENUE MODEL ========== -->
+<section class="revenue" id="revenue">
+    <div class="container">
+        <div class="section-header animate">
+            <div class="section-label">Business Model</div>
+            <h2>Diversified Revenue Streams</h2>
+            <p>A sustainable and scalable business model with multiple revenue channels</p>
+        </div>
+        <div class="revenue-grid">
+            <div class="revenue-card animate">
+                <span class="rev-icon">&#127912;</span>
+                <h3>Free Design Templates</h3>
+                <p>Attract a large user base with free basic templates. Freemium model charges for premium templates and expanded graphics library.</p>
+                <span class="rev-tag rev-tag-sub">User Acquisition</span>
+            </div>
+            <div class="revenue-card animate animate-delay-1">
+                <span class="rev-icon">&#11088;</span>
+                <h3>Paid Memberships</h3>
+                <p>Tiered membership plans unlocking advanced tools, AI-powered design advice, and enhanced customization capabilities.</p>
+                <span class="rev-tag rev-tag-sub">Recurring Revenue</span>
+            </div>
+            <div class="revenue-card animate animate-delay-2">
+                <span class="rev-icon">&#128187;</span>
+                <h3>Professional Design Services</h3>
+                <p>In-house professional designers available for complex or specialized projects. Charged on hourly rates or fixed project fees.</p>
+                <span class="rev-tag rev-tag-sub">Service Revenue</span>
+            </div>
+            <div class="revenue-card animate animate-delay-3">
+                <span class="rev-icon">&#128176;</span>
+                <h3>Product Sales Margin</h3>
+                <p>Earn a percentage on each manufacturing transaction facilitated through the platform. Wholesale pricing with margin &mdash; expected to be a primary revenue source.</p>
+                <span class="rev-tag rev-tag-main">Primary Revenue</span>
+            </div>
+            <div class="revenue-card animate animate-delay-4">
+                <span class="rev-icon">&#128640;</span>
+                <h3>Premium Add-ons</h3>
+                <p>Optional enhancements: expedited shipping, exclusive design elements, priority customer support for additional fees.</p>
+                <span class="rev-tag rev-tag-sub">Upsell Revenue</span>
+            </div>
+            <div class="revenue-card animate animate-delay-5">
+                <span class="rev-icon">&#129309;</span>
+                <h3>Licensing & Partnerships</h3>
+                <p>Licensing agreements with artists/designers. Co-branded souvenir collections with tourism boards and local businesses.</p>
+                <span class="rev-tag rev-tag-sub">Partnership Revenue</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== SALES CHANNELS ========== -->
+<section class="sales">
+    <div class="container">
+        <div class="section-header animate">
+            <div class="section-label">Go-to-Market</div>
+            <h2>Sales & Marketing Channels</h2>
+            <p>Multi-channel approach to maximize market reach and engagement</p>
+        </div>
+        <div class="sales-grid">
+            <div class="sales-card animate">
+                <span class="sales-icon">&#128269;</span>
+                <h3>Online Marketing & SEO</h3>
+                <p>Targeted advertising via Google Ads, Bing Ads, and content marketing through blog posts and articles for organic visibility.</p>
+            </div>
+            <div class="sales-card animate animate-delay-1">
+                <span class="sales-icon">&#128247;</span>
+                <h3>Social Media Marketing</h3>
+                <p>Active presence on Instagram, Facebook, Pinterest, and Twitter. Sharing design inspirations, success stories, and behind-the-scenes content.</p>
+            </div>
+            <div class="sales-card animate animate-delay-2">
+                <span class="sales-icon">&#128231;</span>
+                <h3>Email Marketing</h3>
+                <p>Targeted newsletters with new templates, promotions, and success stories. Personalized campaigns based on customer behavior and preferences.</p>
+            </div>
+            <div class="sales-card animate animate-delay-3">
+                <span class="sales-icon">&#128101;</span>
+                <h3>Affiliate Marketing</h3>
+                <p>Partner with influencers, bloggers, and businesses to earn commissions for driving sales. Unique tracking links and promotional materials provided.</p>
+            </div>
+            <div class="sales-card animate animate-delay-4">
+                <span class="sales-icon">&#129309;</span>
+                <h3>Strategic Partnerships</h3>
+                <p>Collaborate with tourism boards for exclusive collections. Partner with local businesses for co-branded merchandise and cross-promotions.</p>
+            </div>
+            <div class="sales-card animate animate-delay-5">
+                <span class="sales-icon">&#127873;</span>
+                <h3>Customer Referral Program</h3>
+                <p>Incentive program offering discounts, exclusive designs, and perks for successful referrals to grow through word-of-mouth.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== PRICING ========== -->
 <section class="pricing" id="pricing">
-    <div class="section-title">
-        <h2>Plans & Services</h2>
-        <p>Flexible options for businesses of all sizes</p>
-        <div class="divider"></div>
-    </div>
-    <div class="pricing-grid">
-        <div class="pricing-card">
-            <div class="plan-name">Starter</div>
-            <div class="plan-desc">For small souvenir shops</div>
-            <div class="plan-price">Free <span>to design</span></div>
-            <ul>
-                <li>Free design templates</li>
-                <li>Basic customization tools</li>
-                <li>Standard manufacturing</li>
-                <li>Global shipping available</li>
-                <li>Pay per order only</li>
-            </ul>
-            <a href="#contact" class="btn btn-primary">Get Started</a>
+    <div class="container">
+        <div class="section-header animate">
+            <div class="section-label">Plans</div>
+            <h2>Choose Your Plan</h2>
+            <p>Flexible options designed for businesses of all sizes</p>
         </div>
-        <div class="pricing-card featured">
-            <span class="badge">Most Popular</span>
-            <div class="plan-name">Professional</div>
-            <div class="plan-desc">For growing businesses</div>
-            <div class="plan-price">Pro <span>/ month</span></div>
-            <ul>
-                <li>All Starter features</li>
-                <li>Premium design templates</li>
-                <li>AI-powered design advice</li>
-                <li>Advanced customization</li>
-                <li>Priority manufacturing</li>
-                <li>Dedicated support</li>
-            </ul>
-            <a href="#contact" class="btn btn-primary">Contact Sales</a>
-        </div>
-        <div class="pricing-card">
-            <div class="plan-name">Enterprise</div>
-            <div class="plan-desc">For large chains & institutions</div>
-            <div class="plan-price">Custom</div>
-            <ul>
-                <li>All Professional features</li>
-                <li>Professional designer service</li>
-                <li>Custom licensing options</li>
-                <li>Co-branded collections</li>
-                <li>Expedited shipping</li>
-                <li>Account manager</li>
-            </ul>
-            <a href="#contact" class="btn btn-primary">Talk to Us</a>
-        </div>
-    </div>
-</section>
-
-<!-- Location -->
-<section class="location">
-    <div class="section-title">
-        <h2>Based in Victoria, BC, Canada</h2>
-        <p>Strategically located in Canada's premier tourism city - the capital of beautiful British Columbia. Victoria's thriving tourism industry, stunning landscapes, and innovative tech community make it the perfect hub for our centralized souvenir design business.</p>
-        <div class="divider"></div>
-    </div>
-    <div class="location-stats">
-        <div class="stat">
-            <div class="number">4M+</div>
-            <div class="label">Annual Tourists</div>
-        </div>
-        <div class="stat">
-            <div class="number">#1</div>
-            <div class="label">Tourism City in Canada</div>
-        </div>
-        <div class="stat">
-            <div class="number">365</div>
-            <div class="label">Days of Tourism</div>
+        <div class="pricing-grid">
+            <div class="pricing-card animate">
+                <span class="plan-icon">&#127793;</span>
+                <div class="plan-name">Starter</div>
+                <div class="plan-desc">For small souvenir shops</div>
+                <div class="plan-price">Free <sub>to design</sub></div>
+                <ul>
+                    <li><span class="check">&#10003;</span> Free design templates</li>
+                    <li><span class="check">&#10003;</span> Basic customization tools</li>
+                    <li><span class="check">&#10003;</span> Standard manufacturing</li>
+                    <li><span class="check">&#10003;</span> Global shipping available</li>
+                    <li><span class="check">&#10003;</span> Pay per order only</li>
+                    <li><span class="check">&#10003;</span> Email support</li>
+                </ul>
+                <a href="#contact" class="btn btn-outline-dark btn-pricing" style="border:2px solid var(--primary); color:var(--primary); background:transparent;">Get Started Free</a>
+            </div>
+            <div class="pricing-card featured animate animate-delay-1">
+                <div class="pricing-badge">Most Popular</div>
+                <span class="plan-icon">&#11088;</span>
+                <div class="plan-name">Professional</div>
+                <div class="plan-desc">For growing businesses</div>
+                <div class="plan-price">Pro <sub>/ month</sub></div>
+                <ul>
+                    <li><span class="check">&#10003;</span> All Starter features</li>
+                    <li><span class="check">&#10003;</span> Premium template library</li>
+                    <li><span class="check">&#10003;</span> AI-powered design advice</li>
+                    <li><span class="check">&#10003;</span> Advanced customization</li>
+                    <li><span class="check">&#10003;</span> Priority manufacturing</li>
+                    <li><span class="check">&#10003;</span> Data analytics dashboard</li>
+                    <li><span class="check">&#10003;</span> Dedicated support</li>
+                </ul>
+                <a href="#contact" class="btn btn-primary btn-pricing">Contact Sales</a>
+            </div>
+            <div class="pricing-card animate animate-delay-2">
+                <span class="plan-icon">&#128142;</span>
+                <div class="plan-name">Enterprise</div>
+                <div class="plan-desc">For chains & institutions</div>
+                <div class="plan-price">Custom</div>
+                <ul>
+                    <li><span class="check">&#10003;</span> All Professional features</li>
+                    <li><span class="check">&#10003;</span> Professional designer service</li>
+                    <li><span class="check">&#10003;</span> Custom licensing options</li>
+                    <li><span class="check">&#10003;</span> Co-branded collections</li>
+                    <li><span class="check">&#10003;</span> Expedited shipping</li>
+                    <li><span class="check">&#10003;</span> Dedicated account manager</li>
+                    <li><span class="check">&#10003;</span> API access</li>
+                </ul>
+                <a href="#contact" class="btn btn-outline-dark btn-pricing" style="border:2px solid var(--primary); color:var(--primary); background:transparent;">Talk to Us</a>
+            </div>
         </div>
     </div>
 </section>
 
-<!-- Milestones -->
-<section class="milestones" id="milestones">
-    <div class="section-title">
-        <h2>Our Roadmap</h2>
-        <p>First 5-year plan focused on Canada and US market deployment</p>
-        <div class="divider"></div>
-    </div>
-    <div class="timeline">
-        <div class="timeline-item">
-            <div class="year">March 2024</div>
-            <h4>Company Established</h4>
-            <p>CraftedMemento Creations officially founded.</p>
-        </div>
-        <div class="timeline-item">
-            <div class="year">December 2024</div>
-            <h4>Platform Launch</h4>
-            <p>Company operational with website and social media presence ready.</p>
-        </div>
-        <div class="timeline-item">
-            <div class="year">December 2026</div>
-            <h4>$2M Revenue Target</h4>
-            <p>Reach $2 million in annual revenue.</p>
-        </div>
-        <div class="timeline-item">
-            <div class="year">December 2028</div>
-            <h4>$5M Revenue Target</h4>
-            <p>Scale to $5 million with expanded North American presence.</p>
-        </div>
-        <div class="timeline-item">
-            <div class="year">December 2029</div>
-            <h4>$10M Revenue Target</h4>
-            <p>Achieve $10 million and prepare for North America & European market expansion.</p>
+<!-- ========== LOCATION ========== -->
+<section class="location" id="location">
+    <div class="container">
+        <div class="location-grid">
+            <div class="location-text animate">
+                <div class="section-label">Headquarters</div>
+                <h3>Victoria, BC, Canada &mdash; The Ideal Home Base</h3>
+                <p>Strategically located in Canada's premier tourism city and the capital of picturesque British Columbia. Victoria attracts a steady stream of domestic and international tourists throughout the year.</p>
+                <p>Its stunning landscapes, cultural richness, historic charm, and innovative tech community align seamlessly with our vision of offering integrated solutions from design to manufacturing to retail.</p>
+                <div class="location-features">
+                    <div class="loc-feat">
+                        <div class="val">#1</div>
+                        <div class="lbl">Tourism City in Canada</div>
+                    </div>
+                    <div class="loc-feat">
+                        <div class="val">BC</div>
+                        <div class="lbl">Provincial Capital</div>
+                    </div>
+                    <div class="loc-feat">
+                        <div class="val">4M+</div>
+                        <div class="lbl">Annual Visitors</div>
+                    </div>
+                    <div class="loc-feat">
+                        <div class="val">365</div>
+                        <div class="lbl">Days of Tourism</div>
+                    </div>
+                </div>
+            </div>
+            <div class="location-map animate animate-delay-2">
+                <span class="map-pin">&#128205;</span>
+                <h4>Victoria, British Columbia</h4>
+                <p>Capital City &bull; Tourism Hub &bull; Tech Community</p>
+                <ul class="advantages-list">
+                    <li>Thriving tourism industry year-round</li>
+                    <li>Diverse & dynamic tourism landscape</li>
+                    <li>Constant influx of businesses seeking local souvenirs</li>
+                    <li>Innovative tech community for talent</li>
+                    <li>Gateway to North American markets</li>
+                    <li>Cultural richness & historic charm</li>
+                </ul>
+            </div>
         </div>
     </div>
 </section>
 
-<!-- Team -->
+<!-- ========== ROADMAP ========== -->
+<section class="milestones" id="roadmap">
+    <div class="container">
+        <div class="section-header animate">
+            <div class="section-label">Growth Plan</div>
+            <h2>Our Roadmap & Milestones</h2>
+            <p>A structured 5-year growth plan focused on Canada and US market deployment</p>
+        </div>
+        <div class="roadmap">
+            <div class="milestone animate" style="grid-column:1; grid-row:1;">
+                <div class="m-date">March 2024</div>
+                <h4>Company Established</h4>
+                <p>CraftedMemento Creations officially founded with founding team assembled.</p>
+                <span class="m-tag m-tag-done">Completed</span>
+            </div>
+            <div class="milestone animate animate-delay-1" style="grid-column:2; grid-row:2;">
+                <div class="m-date">December 2024</div>
+                <h4>Platform Launch</h4>
+                <p>Company fully operational. Website, design platform, and social media presence ready for customers.</p>
+                <span class="m-tag m-tag-done">Completed</span>
+            </div>
+            <div class="milestone animate animate-delay-2" style="grid-column:1; grid-row:3;">
+                <div class="m-date">December 2026</div>
+                <h4>$2M Revenue Target</h4>
+                <p>Reach $2 million in annual revenue. Establish strong presence in Canadian market.</p>
+                <span class="m-tag m-tag-progress">In Progress</span>
+            </div>
+            <div class="milestone animate animate-delay-3" style="grid-column:2; grid-row:4;">
+                <div class="m-date">December 2028</div>
+                <h4>$5M Revenue Target</h4>
+                <p>Scale to $5 million with expanded North American market presence and growing client base.</p>
+                <span class="m-tag m-tag-upcoming">Upcoming</span>
+            </div>
+            <div class="milestone animate animate-delay-4" style="grid-column:1; grid-row:5;">
+                <div class="m-date">December 2029</div>
+                <h4>$10M Revenue Target</h4>
+                <p>Achieve $10 million in revenue. Prepare for full North American and European market expansion.</p>
+                <span class="m-tag m-tag-upcoming">Upcoming</span>
+            </div>
+        </div>
+        <div class="long-term">
+            <div class="lt-card animate">
+                <h4>Second 5-Year Plan (2029-2034)</h4>
+                <p>Full-speed expansion into North American and European markets. Establish CraftedMemento as the leading global platform for custom souvenir design and manufacturing.</p>
+            </div>
+            <div class="lt-card animate animate-delay-1">
+                <h4>Third 5-Year Plan (2034-2039)</h4>
+                <p>Continue building company value and explore IPO options to fuel further global expansion and platform innovation.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== TEAM ========== -->
 <section class="team" id="team">
-    <div class="section-title">
-        <h2>Founding Team</h2>
-        <p>Experienced leadership driving innovation in the souvenir industry</p>
-        <div class="divider"></div>
-    </div>
-    <div class="team-grid">
-        <div class="team-card">
-            <div class="team-avatar">JJ</div>
-            <h3>Ji Junting</h3>
-            <div class="role">CEO & Founder</div>
-            <p>Overall management, business planning, HR, public relations, business negotiation, project & financial management.</p>
+    <div class="container">
+        <div class="section-header animate">
+            <div class="section-label">Leadership</div>
+            <h2>Meet Our Founding Team</h2>
+            <p>Experienced leadership driving innovation in the souvenir industry</p>
         </div>
-        <div class="team-card">
-            <div class="team-avatar">ZY</div>
-            <h3>Zou You</h3>
-            <div class="role">Internet Marketing Lead</div>
-            <p>Digital strategy, content creation, SEO, social media management, paid advertising and online reputation.</p>
+        <div class="team-grid">
+            <div class="team-card animate">
+                <div class="team-avatar">JJ</div>
+                <h3>Ji Junting</h3>
+                <div class="role">CEO & Founder</div>
+                <p>Overall management, business planning, HR, public relations, business negotiation, project management, and financial oversight. Leads all departments and evaluates performance.</p>
+            </div>
+            <div class="team-card animate animate-delay-1">
+                <div class="team-avatar">ZY</div>
+                <h3>Zou You</h3>
+                <div class="role">Co-Founder &bull; Internet Marketing</div>
+                <p>Digital strategy, content creation, SEO, social media management, email marketing, paid advertising, online reputation management, and CRM integration.</p>
+            </div>
+            <div class="team-card animate animate-delay-2">
+                <div class="team-avatar">ZX</div>
+                <h3>Zhao XinYing</h3>
+                <div class="role">Co-Founder &bull; Finance & Strategy</div>
+                <p>Financial modeling, budget management, cash flow analysis, risk mitigation, international market research, strategic partnership development, and regulatory compliance.</p>
+            </div>
         </div>
-        <div class="team-card">
-            <div class="team-avatar">ZX</div>
-            <h3>Zhao XinYing</h3>
-            <div class="role">Finance & Strategy Lead</div>
-            <p>Financial modeling, budget management, international market research, strategic partnerships development.</p>
+
+        <!-- Org Chart -->
+        <div class="org-chart animate">
+            <h3>Organization Structure</h3>
+            <div class="org-departments">
+                <div class="org-dept">
+                    <span class="dept-icon">&#127912;</span>
+                    <h4>Design Department</h4>
+                    <p>Create and update all designs available on the platform</p>
+                </div>
+                <div class="org-dept">
+                    <span class="dept-icon">&#9881;</span>
+                    <h4>Manufacturing & Logistics</h4>
+                    <p>Coordinate with manufacturers and logistics providers</p>
+                </div>
+                <div class="org-dept">
+                    <span class="dept-icon">&#128187;</span>
+                    <h4>Internet Marketing</h4>
+                    <p>Digital strategy, SEO, social media, paid ads & CRM</p>
+                </div>
+                <div class="org-dept">
+                    <span class="dept-icon">&#128176;</span>
+                    <h4>Finance & Strategy</h4>
+                    <p>Financial models, budgets, international partnerships</p>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
-<!-- CTA -->
+<!-- ========== CTA ========== -->
 <section class="cta" id="contact">
-    <h2>Ready to Transform Your Souvenir Store?</h2>
-    <p>Join CraftedMemento and start creating unique, custom-designed products that your customers will love.</p>
-    <a href="mailto:info@craftedmemento.com" class="btn btn-white">Contact Us Today</a>
+    <div class="cta-content">
+        <h2 class="animate">Ready to Transform Your Souvenir Store?</h2>
+        <p class="animate animate-delay-1">Join CraftedMemento and start creating unique, custom-designed products that capture the essence of your destination and delight your customers.</p>
+        <div class="animate animate-delay-2" style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+            <a href="mailto:info@craftedmemento.com" class="btn btn-white">Contact Us Today &rarr;</a>
+            <a href="#features" class="btn btn-outline-light">Learn More</a>
+        </div>
+    </div>
 </section>
 
-<!-- Footer -->
+<!-- ========== FOOTER ========== -->
 <footer>
-    <div class="footer-grid">
+    <div class="footer-top">
         <div class="footer-brand">
             <a href="#" class="logo">Crafted<span>Memento</span></a>
-            <p>Your creative partner for custom souvenir design, centralized manufacturing, and global shipping solutions. Based in Victoria, BC, Canada.</p>
+            <p>Your creative partner for custom souvenir design, centralized manufacturing, and global shipping solutions. Headquartered in Victoria, BC, Canada.</p>
+            <div class="social-links">
+                <a href="#" class="social-link">IG</a>
+                <a href="#" class="social-link">FB</a>
+                <a href="#" class="social-link">PT</a>
+                <a href="#" class="social-link">LI</a>
+                <a href="#" class="social-link">TW</a>
+            </div>
         </div>
         <div>
             <h4>Platform</h4>
             <ul>
                 <li><a href="#features">Design Tool</a></li>
                 <li><a href="#features">Manufacturing</a></li>
-                <li><a href="#features">Shipping</a></li>
-                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#features">AI Design Advice</a></li>
+                <li><a href="#features">Global Shipping</a></li>
+                <li><a href="#pricing">Pricing Plans</a></li>
             </ul>
         </div>
         <div>
@@ -589,29 +1218,51 @@
             <ul>
                 <li><a href="#about">About Us</a></li>
                 <li><a href="#team">Team</a></li>
-                <li><a href="#milestones">Roadmap</a></li>
+                <li><a href="#market">Market Analysis</a></li>
+                <li><a href="#roadmap">Roadmap</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
         <div>
-            <h4>Connect</h4>
+            <h4>Resources</h4>
             <ul>
-                <li><a href="#">Instagram</a></li>
-                <li><a href="#">Facebook</a></li>
-                <li><a href="#">Pinterest</a></li>
-                <li><a href="#">LinkedIn</a></li>
+                <li><a href="#products">Product Catalog</a></li>
+                <li><a href="#advantages">Why Us</a></li>
+                <li><a href="#revenue">Business Model</a></li>
+                <li><a href="#location">Our Location</a></li>
+                <li><a href="#">Support</a></li>
             </ul>
         </div>
     </div>
     <div class="footer-bottom">
-        <p>&copy; 2024 CraftedMemento Creations. All rights reserved. Victoria, BC, Canada.</p>
+        <p>&copy; 2024 CraftedMemento Creations. All rights reserved.</p>
+        <div class="footer-bottom-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Cookie Policy</a>
+        </div>
     </div>
 </footer>
 
 <script>
-    // Smooth scrolling
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
+    // Scroll animations
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('.animate').forEach(el => observer.observe(el));
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+        document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', function(e) {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
             if (target) {
@@ -621,12 +1272,13 @@
         });
     });
 
-    // Navbar background on scroll
-    window.addEventListener('scroll', () => {
-        const nav = document.querySelector('nav');
-        nav.style.background = window.scrollY > 50
-            ? 'rgba(26, 58, 92, 0.98)'
-            : 'rgba(26, 58, 92, 0.95)';
+    // Mobile menu close on outside click
+    document.addEventListener('click', (e) => {
+        const nav = document.getElementById('navLinks');
+        const toggle = document.querySelector('.menu-toggle');
+        if (!nav.contains(e.target) && !toggle.contains(e.target)) {
+            nav.classList.remove('active');
+        }
     });
 </script>
 
