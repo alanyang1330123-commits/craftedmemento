@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh auth:*)",
+      "Bash(git --version)",
+      "Bash(where gh:*)",
+      "Bash(winget install:*)",
+      "Bash(export PATH=\"/c/Program Files/GitHub CLI:$PATH\")",
+      "Bash(gh --version)",
+      "Bash(gh api:*)",
+      "Bash(gh repo:*)",
+      "WebSearch",
+      "Bash(sed -i 's|<title>CraftedMemento Creations - Custom Souvenir Design \\\\&amp; Manufacturing Platform</title>|<title>Morethanca.com - Custom Souvenir Design \\\\&amp; Manufacturing Platform</title>|g' D:/morethanca/index.html)",
+      "Bash(__NEW_LINE_b95d77110afddb62__ sed:*)",
+      "Bash(__NEW_LINE_b95d77110afddb62__ echo:*)"
+    ]
+  }
+}
