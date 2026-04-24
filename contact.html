@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - CraftedMemento Creations</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav id="navbar">
+    <a href="index.html" class="logo"><span>Morethanca</span>.com</a>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="features.html">Features</a></li>
+        <li><a href="market.html">Market</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="roadmap.html">Roadmap</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="contact.html" class="nav-cta active">Get Started</a></li>
+    </ul>
+    <button class="menu-toggle" onclick="document.getElementById('navLinks').classList.toggle('active')" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+    <div class="hero-particles"><div class="p"></div><div class="p"></div></div>
+    <div class="page-hero-content">
+        <div class="section-label">Let's Talk</div>
+        <h1>Get in Touch</h1>
+        <p>Ready to start creating custom souvenirs? Have questions about the platform? We'd love to hear from you.</p>
+    </div>
+</div>
+
+<!-- CONTACT SECTION -->
+<section style="background:var(--lighter);">
+    <div class="container">
+        <div class="contact-grid">
+            <!-- CONTACT INFO -->
+            <div class="contact-info animate">
+                <h3>Contact Information</h3>
+                <p>Reach out through any of the channels below. Our team typically responds within one business day.</p>
+
+                <div class="contact-item">
+                    <div class="contact-item-icon">&#128205;</div>
+                    <div>
+                        <h4>Headquarters</h4>
+                        <p>Victoria, British Columbia, Canada</p>
+                        <p>Canada's #1 Tourism City</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-item-icon">&#128231;</div>
+                    <div>
+                        <h4>Email Us</h4>
+                        <p>hello@morethanca.com</p>
+                        <p>support@morethanca.com</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-item-icon">&#128241;</div>
+                    <div>
+                        <h4>Phone</h4>
+                        <p>+1 (250) 000-0000</p>
+                        <p>Mon &ndash; Fri, 9am &ndash; 5pm PST</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-item-icon">&#127758;</div>
+                    <div>
+                        <h4>Serving Clients Globally</h4>
+                        <p>Canada &bull; United States &bull; Europe</p>
+                        <p>International inquiries welcome</p>
+                    </div>
+                </div>
+
+                <div style="margin-top:32px;">
+                    <p style="font-size:.88rem; font-weight:600; color:var(--primary); margin-bottom:14px; text-transform:uppercase; letter-spacing:.5px;">Follow Us</p>
+                    <div class="social-links" style="justify-content:flex-start;">
+                        <a href="#" class="social-link">IG</a>
+                        <a href="#" class="social-link">FB</a>
+                        <a href="#" class="social-link">PT</a>
+                        <a href="#" class="social-link">LI</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTACT FORM -->
+            <div class="contact-form animate animate-delay-1">
+                <h3>Send Us a Message</h3>
+                <form onsubmit="handleSubmit(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fname">First Name</label>
+                            <input type="text" id="fname" placeholder="Jane" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lname">Last Name</label>
+                            <input type="text" id="lname" placeholder="Smith" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="jane@museumstore.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="business">Business / Organization</label>
+                        <input type="text" id="business" placeholder="Victoria Museum Gift Store">
+                    </div>
+                    <div class="form-group">
+                        <label for="type">Business Type</label>
+                        <select id="type">
+                            <option value="">Select your business type...</option>
+                            <option>Local Souvenir Shop</option>
+                            <option>Museum Gift Store</option>
+                            <option>University Bookshop</option>
+                            <option>Hotel Gift Shop</option>
+                            <option>Tourist Attraction Store</option>
+                            <option>National / Theme Park Store</option>
+                            <option>Cultural Heritage Site</option>
+                            <option>Gift Boutique</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" placeholder="Inquiry about Professional plan" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" placeholder="Tell us about your souvenir needs, expected order volumes, or any questions you have..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Send Message &rarr;</button>
+                </form>
+                <div id="form-success" style="display:none; margin-top:20px; background:rgba(42,140,90,.08); border:1.5px solid var(--green); border-radius:12px; padding:20px 24px; color:var(--green-dark); font-weight:500; text-align:center;">
+                    &#10003; Thank you! Your message has been sent. We'll be in touch within one business day.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- WHY REACH OUT -->
+<section style="background:var(--white);">
+    <div class="container">
+        <div class="section-header animate">
+            <div class="section-label">How We Can Help</div>
+            <h2>Reasons to Connect</h2>
+            <p>Whether you're just exploring or ready to order &mdash; we're here for every step</p>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px; max-width:960px; margin:0 auto;">
+            <div class="animate" style="background:var(--lighter); border-radius:20px; padding:32px 24px; border:1px solid #eef; text-align:center;">
+                <div style="font-size:2rem; margin-bottom:14px;">&#127912;</div>
+                <h4 style="color:var(--primary); margin-bottom:10px;">Platform Demo</h4>
+                <p style="color:var(--text-light); font-size:.88rem;">Request a personalized walkthrough of the design tool, manufacturing process, and AI recommendations tailored to your business type.</p>
+            </div>
+            <div class="animate animate-delay-1" style="background:var(--lighter); border-radius:20px; padding:32px 24px; border:1px solid #eef; text-align:center;">
+                <div style="font-size:2rem; margin-bottom:14px;">&#128176;</div>
+                <h4 style="color:var(--primary); margin-bottom:10px;">Custom Pricing</h4>
+                <p style="color:var(--text-light); font-size:.88rem;">Large order volumes or unique requirements? Contact us to discuss custom Enterprise pricing and dedicated manufacturing capacity.</p>
+            </div>
+            <div class="animate animate-delay-2" style="background:var(--lighter); border-radius:20px; padding:32px 24px; border:1px solid #eef; text-align:center;">
+                <div style="font-size:2rem; margin-bottom:14px;">&#129309;</div>
+                <h4 style="color:var(--primary); margin-bottom:10px;">Partnership Opportunities</h4>
+                <p style="color:var(--text-light); font-size:.88rem;">Tourism boards, local businesses, and designers &mdash; explore co-branded collections, licensing agreements, and affiliate programs.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+    <div class="cta-content">
+        <h2 class="animate">Your Custom Souvenir Journey Starts Here</h2>
+        <p class="animate animate-delay-1">Don't wait &mdash; the souvenir industry is evolving fast. Let CraftedMemento give your business the edge it needs.</p>
+        <div class="cta-buttons animate animate-delay-2">
+            <a href="pricing.html" class="btn btn-white">View Pricing &rarr;</a>
+            <a href="products.html" class="btn btn-outline-light">Explore Products</a>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-top">
+        <div class="footer-brand">
+            <a href="index.html" class="logo"><span>Morethanca</span>.com</a>
+            <p>Your creative partner for custom souvenir design, centralized manufacturing, and global shipping. Based in Victoria, BC, Canada.</p>
+            <div class="social-links">
+                <a href="#" class="social-link">IG</a><a href="#" class="social-link">FB</a>
+                <a href="#" class="social-link">PT</a><a href="#" class="social-link">LI</a>
+            </div>
+        </div>
+        <div><h4>Platform</h4><ul>
+            <li><a href="features.html">Design Tool</a></li>
+            <li><a href="features.html">Manufacturing</a></li>
+            <li><a href="features.html">AI Advice</a></li>
+            <li><a href="pricing.html">Pricing</a></li>
+        </ul></div>
+        <div><h4>Company</h4><ul>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="team.html">Team</a></li>
+            <li><a href="roadmap.html">Roadmap</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul></div>
+        <div><h4>Explore</h4><ul>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="market.html">Market Analysis</a></li>
+            <li><a href="market.html">Revenue Model</a></li>
+            <li><a href="features.html">Advantages</a></li>
+        </ul></div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 CraftedMemento Creations. All rights reserved.</p>
+        <div class="footer-bottom-links"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div>
+    </div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('.animate').forEach(el => observer.observe(el));
+window.addEventListener('scroll', () => document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50));
+document.addEventListener('click', e => {
+    const nav = document.getElementById('navLinks');
+    if(!nav.contains(e.target) && !document.querySelector('.menu-toggle').contains(e.target)) nav.classList.remove('active');
+});
+function handleSubmit(e) {
+    e.preventDefault();
+    document.getElementById('form-success').style.display = 'block';
+    e.target.reset();
+    e.target.style.display = 'none';
+}
+</script>
+</body>
+</html>

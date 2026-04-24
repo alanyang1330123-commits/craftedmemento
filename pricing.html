@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing - CraftedMemento Creations</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav id="navbar">
+    <a href="index.html" class="logo"><span>Morethanca</span>.com</a>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="features.html">Features</a></li>
+        <li><a href="market.html">Market</a></li>
+        <li><a href="pricing.html" class="active">Pricing</a></li>
+        <li><a href="roadmap.html">Roadmap</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="contact.html" class="nav-cta">Get Started</a></li>
+    </ul>
+    <button class="menu-toggle" onclick="document.getElementById('navLinks').classList.toggle('active')" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+    <div class="hero-particles"><div class="p"></div><div class="p"></div></div>
+    <div class="page-hero-content">
+        <div class="section-label">Plans &amp; Pricing</div>
+        <h1>Simple, Transparent Pricing</h1>
+        <p>Choose the plan that fits your business. Start free, upgrade as you grow &mdash; no hidden fees, cancel anytime.</p>
+    </div>
+</div>
+
+<!-- PRICING CARDS -->
+<section style="background:var(--lighter);">
+    <div class="container">
+        <div class="section-header animate">
+            <div class="section-label">Our Plans</div>
+            <h2>Built for Every Business Size</h2>
+            <p>From local boutiques to large tourism chains &mdash; a plan designed for your needs</p>
+        </div>
+        <div class="pricing-grid">
+            <!-- STARTER -->
+            <div class="pricing-card animate">
+                <div class="pricing-tier">Starter</div>
+                <div class="pricing-price">Free<span>/month</span></div>
+                <p class="pricing-desc">Perfect for small shops just getting started with custom souvenirs.</p>
+                <ul>
+                    <li><span class="check">&#10003;</span> Access to 20+ free design templates</li>
+                    <li><span class="check">&#10003;</span> Basic online design tool</li>
+                    <li><span class="check">&#10003;</span> Up to 3 active designs</li>
+                    <li><span class="check">&#10003;</span> Standard manufacturing lead times</li>
+                    <li><span class="check">&#10003;</span> Standard global shipping</li>
+                    <li><span class="check">&#10003;</span> Email support</li>
+                    <li><span class="muted">&#8212;</span> AI design recommendations</li>
+                    <li><span class="muted">&#8212;</span> Priority manufacturing</li>
+                    <li><span class="muted">&#8212;</span> Professional design services</li>
+                </ul>
+                <a href="contact.html" class="btn btn-outline btn-pricing">Get Started Free</a>
+            </div>
+
+            <!-- PROFESSIONAL -->
+            <div class="pricing-card featured animate animate-delay-1">
+                <div class="pricing-badge">Most Popular</div>
+                <div class="pricing-tier">Professional</div>
+                <div class="pricing-price">$149<span>/month</span></div>
+                <p class="pricing-desc">Ideal for growing tourism businesses wanting AI-driven design intelligence.</p>
+                <ul>
+                    <li><span class="check">&#10003;</span> Access to 100+ premium templates</li>
+                    <li><span class="check">&#10003;</span> Advanced design tool with full customization</li>
+                    <li><span class="check">&#10003;</span> Unlimited active designs</li>
+                    <li><span class="check">&#10003;</span> AI design recommendations &amp; analytics</li>
+                    <li><span class="check">&#10003;</span> Priority manufacturing queue</li>
+                    <li><span class="check">&#10003;</span> Expedited shipping options</li>
+                    <li><span class="check">&#10003;</span> 2 hours/month professional design support</li>
+                    <li><span class="check">&#10003;</span> Dedicated account manager</li>
+                    <li><span class="muted">&#8212;</span> Custom licensing &amp; partnerships</li>
+                </ul>
+                <a href="contact.html" class="btn btn-primary btn-pricing">Start Professional</a>
+            </div>
+
+            <!-- ENTERPRISE -->
+            <div class="pricing-card animate animate-delay-2">
+                <div class="pricing-tier">Enterprise</div>
+                <div class="pricing-price">Custom<span>/month</span></div>
+                <p class="pricing-desc">For large tourism chains, museum networks, and institutional buyers requiring full-service solutions.</p>
+                <ul>
+                    <li><span class="check">&#10003;</span> Everything in Professional</li>
+                    <li><span class="check">&#10003;</span> Custom branded template library</li>
+                    <li><span class="check">&#10003;</span> Dedicated manufacturing capacity</li>
+                    <li><span class="check">&#10003;</span> Full AI suite with custom analytics dashboard</li>
+                    <li><span class="check">&#10003;</span> Unlimited professional design hours</li>
+                    <li><span class="check">&#10003;</span> Custom licensing &amp; partnership agreements</li>
+                    <li><span class="check">&#10003;</span> Co-branded collection development</li>
+                    <li><span class="check">&#10003;</span> SLA-guaranteed delivery windows</li>
+                    <li><span class="check">&#10003;</span> 24/7 dedicated support team</li>
+                </ul>
+                <a href="contact.html" class="btn btn-outline btn-pricing">Contact Sales</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- REVENUE STREAMS NOTE -->
+<section style="background:var(--white);">
+    <div class="container">
+        <div class="section-header animate">
+            <div class="section-label">How We Charge</div>
+            <h2>Transparent Revenue Model</h2>
+            <p>Beyond subscriptions, our pricing is structured to align with your success</p>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:28px; max-width:960px; margin:0 auto;">
+            <div class="animate" style="background:var(--lighter); border-radius:20px; padding:36px 28px; border:1px solid #eef; text-align:center;">
+                <div style="font-size:2.2rem; margin-bottom:14px;">&#128176;</div>
+                <h3 style="color:var(--primary); margin-bottom:10px; font-size:1.1rem;">Product Sales Margin</h3>
+                <p style="color:var(--text-light); font-size:.9rem;">A percentage margin is added to each manufactured product ordered through the platform. This is our primary revenue source and scales with your order volume.</p>
+            </div>
+            <div class="animate animate-delay-1" style="background:var(--lighter); border-radius:20px; padding:36px 28px; border:1px solid #eef; text-align:center;">
+                <div style="font-size:2.2rem; margin-bottom:14px;">&#128640;</div>
+                <h3 style="color:var(--primary); margin-bottom:10px; font-size:1.1rem;">Premium Add-Ons</h3>
+                <p style="color:var(--text-light); font-size:.9rem;">Optional enhancements such as expedited shipping, exclusive design elements, rush manufacturing, or priority customer support are available at additional per-use fees.</p>
+            </div>
+            <div class="animate animate-delay-2" style="background:var(--lighter); border-radius:20px; padding:36px 28px; border:1px solid #eef; text-align:center;">
+                <div style="font-size:2.2rem; margin-bottom:14px;">&#129309;</div>
+                <h3 style="color:var(--primary); margin-bottom:10px; font-size:1.1rem;">Licensing &amp; Partnerships</h3>
+                <p style="color:var(--text-light); font-size:.9rem;">Revenue from licensing agreements with artists, co-branded collections with tourism boards, and strategic partnerships with local businesses.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section style="background:var(--light);">
+    <div class="container">
+        <div class="section-header animate">
+            <div class="section-label">FAQ</div>
+            <h2>Common Questions</h2>
+            <p>Everything you need to know about our pricing and platform</p>
+        </div>
+        <div style="max-width:760px; margin:0 auto; display:grid; gap:16px;">
+            <div class="animate" style="background:var(--white); border-radius:16px; padding:28px 32px; border:1px solid #eef;">
+                <h4 style="color:var(--primary); margin-bottom:8px;">Is there a minimum order quantity?</h4>
+                <p style="color:var(--text-light); font-size:.93rem; margin:0;">No minimum order quantity on Starter and Professional plans. Enterprise plans may have volume commitments discussed during onboarding.</p>
+            </div>
+            <div class="animate animate-delay-1" style="background:var(--white); border-radius:16px; padding:28px 32px; border:1px solid #eef;">
+                <h4 style="color:var(--primary); margin-bottom:8px;">Can I switch plans anytime?</h4>
+                <p style="color:var(--text-light); font-size:.93rem; margin:0;">Yes. You can upgrade or downgrade your plan at any time. Upgrades take effect immediately; downgrades apply at the next billing cycle.</p>
+            </div>
+            <div class="animate animate-delay-2" style="background:var(--white); border-radius:16px; padding:28px 32px; border:1px solid #eef;">
+                <h4 style="color:var(--primary); margin-bottom:8px;">What currencies do you accept?</h4>
+                <p style="color:var(--text-light); font-size:.93rem; margin:0;">All pricing is in CAD. We accept major credit cards, bank transfers, and can arrange invoicing for Enterprise clients.</p>
+            </div>
+            <div class="animate animate-delay-3" style="background:var(--white); border-radius:16px; padding:28px 32px; border:1px solid #eef;">
+                <h4 style="color:var(--primary); margin-bottom:8px;">How does the product margin work?</h4>
+                <p style="color:var(--text-light); font-size:.93rem; margin:0;">When you order products through our platform, the wholesale manufacturing cost plus our platform margin is the price you pay. Volume discounts apply for large orders.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+    <div class="cta-content">
+        <h2 class="animate">Start Building Your Souvenir Brand</h2>
+        <p class="animate animate-delay-1">Get started for free today. No credit card required. Upgrade whenever you're ready.</p>
+        <div class="cta-buttons animate animate-delay-2">
+            <a href="contact.html" class="btn btn-white">Get in Touch &rarr;</a>
+            <a href="features.html" class="btn btn-outline-light">Explore Features</a>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-top">
+        <div class="footer-brand">
+            <a href="index.html" class="logo"><span>Morethanca</span>.com</a>
+            <p>Your creative partner for custom souvenir design, centralized manufacturing, and global shipping. Based in Victoria, BC, Canada.</p>
+            <div class="social-links">
+                <a href="#" class="social-link">IG</a><a href="#" class="social-link">FB</a>
+                <a href="#" class="social-link">PT</a><a href="#" class="social-link">LI</a>
+            </div>
+        </div>
+        <div><h4>Platform</h4><ul>
+            <li><a href="features.html">Design Tool</a></li>
+            <li><a href="features.html">Manufacturing</a></li>
+            <li><a href="features.html">AI Advice</a></li>
+            <li><a href="pricing.html">Pricing</a></li>
+        </ul></div>
+        <div><h4>Company</h4><ul>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="team.html">Team</a></li>
+            <li><a href="roadmap.html">Roadmap</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul></div>
+        <div><h4>Explore</h4><ul>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="market.html">Market Analysis</a></li>
+            <li><a href="market.html">Revenue Model</a></li>
+            <li><a href="features.html">Advantages</a></li>
+        </ul></div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 CraftedMemento Creations. All rights reserved.</p>
+        <div class="footer-bottom-links"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div>
+    </div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('.animate').forEach(el => observer.observe(el));
+window.addEventListener('scroll', () => document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50));
+document.addEventListener('click', e => {
+    const nav = document.getElementById('navLinks');
+    if(!nav.contains(e.target) && !document.querySelector('.menu-toggle').contains(e.target)) nav.classList.remove('active');
+});
+</script>
+</body>
+</html>

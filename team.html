@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team - CraftedMemento Creations</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav id="navbar">
+    <a href="index.html" class="logo"><span>Morethanca</span>.com</a>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="features.html">Features</a></li>
+        <li><a href="market.html">Market</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="roadmap.html">Roadmap</a></li>
+        <li><a href="team.html" class="active">Team</a></li>
+        <li><a href="contact.html" class="nav-cta">Get Started</a></li>
+    </ul>
+    <button class="menu-toggle" onclick="document.getElementById('navLinks').classList.toggle('active')" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+    <div class="hero-particles"><div class="p"></div><div class="p"></div></div>
+    <div class="page-hero-content">
+        <div class="section-label">The People Behind It</div>
+        <h1>Our Team</h1>
+        <p>A passionate, multidisciplinary team united by a mission to revolutionize how tourism businesses create and sell their souvenirs.</p>
+    </div>
+</div>
+
+<!-- TEAM MEMBERS -->
+<section style="background:var(--lighter);">
+    <div class="container">
+        <div class="section-header animate">
+            <div class="section-label">Leadership</div>
+            <h2>Meet the Founders</h2>
+            <p>Bringing together expertise in business strategy, marketing, and finance to build the future of souvenir design</p>
+        </div>
+        <div class="team-grid">
+            <div class="team-card animate">
+                <div class="team-avatar" style="background:linear-gradient(135deg,var(--primary),var(--primary-light));">JJ</div>
+                <h3>Ji Junting</h3>
+                <div class="role">Chief Executive Officer</div>
+                <p>Visionary leader driving CraftedMemento's strategic direction. Ji Junting combines a deep understanding of the tourism industry with entrepreneurial expertise to build a platform that empowers souvenir businesses worldwide.</p>
+                <div style="margin-top:20px; display:flex; justify-content:center; gap:10px;">
+                    <span style="background:rgba(26,58,92,.08); color:var(--primary); padding:5px 14px; border-radius:50px; font-size:.75rem; font-weight:600;">Strategy</span>
+                    <span style="background:rgba(26,58,92,.08); color:var(--primary); padding:5px 14px; border-radius:50px; font-size:.75rem; font-weight:600;">Leadership</span>
+                    <span style="background:rgba(26,58,92,.08); color:var(--primary); padding:5px 14px; border-radius:50px; font-size:.75rem; font-weight:600;">Vision</span>
+                </div>
+            </div>
+            <div class="team-card animate animate-delay-1">
+                <div class="team-avatar" style="background:linear-gradient(135deg,var(--accent),var(--accent-dark));">ZY</div>
+                <h3>Zou You</h3>
+                <div class="role">Head of Marketing</div>
+                <p>Marketing strategist responsible for building CraftedMemento's brand and driving customer acquisition. Zou You leads all go-to-market initiatives, social media presence, affiliate programs, and strategic partnership development.</p>
+                <div style="margin-top:20px; display:flex; justify-content:center; gap:10px;">
+                    <span style="background:rgba(232,151,62,.1); color:var(--accent-dark); padding:5px 14px; border-radius:50px; font-size:.75rem; font-weight:600;">Growth</span>
+                    <span style="background:rgba(232,151,62,.1); color:var(--accent-dark); padding:5px 14px; border-radius:50px; font-size:.75rem; font-weight:600;">Branding</span>
+                    <span style="background:rgba(232,151,62,.1); color:var(--accent-dark); padding:5px 14px; border-radius:50px; font-size:.75rem; font-weight:600;">Partnerships</span>
+                </div>
+            </div>
+            <div class="team-card animate animate-delay-2">
+                <div class="team-avatar" style="background:linear-gradient(135deg,var(--green),var(--green-dark));">ZX</div>
+                <h3>Zhao XinYing</h3>
+                <div class="role">Head of Finance</div>
+                <p>Financial strategist overseeing CraftedMemento's revenue model, budgeting, and investor relations. Zhao XinYing ensures the platform's financial health and drives sustainable, scalable growth through disciplined fiscal management.</p>
+                <div style="margin-top:20px; display:flex; justify-content:center; gap:10px;">
+                    <span style="background:rgba(42,140,90,.1); color:var(--green-dark); padding:5px 14px; border-radius:50px; font-size:.75rem; font-weight:600;">Finance</span>
+                    <span style="background:rgba(42,140,90,.1); color:var(--green-dark); padding:5px 14px; border-radius:50px; font-size:.75rem; font-weight:600;">Operations</span>
+                    <span style="background:rgba(42,140,90,.1); color:var(--green-dark); padding:5px 14px; border-radius:50px; font-size:.75rem; font-weight:600;">Growth</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ORG CHART -->
+        <div class="org-chart animate">
+            <div class="org-title">Organizational Structure</div>
+            <div class="org-ceo">
+                <h4>Ji Junting</h4>
+                <p>Chief Executive Officer</p>
+            </div>
+            <div class="org-line"></div>
+            <div class="org-departments">
+                <div class="org-dept">
+                    <span class="dept-icon">&#128247;</span>
+                    <h4>Marketing &amp; Sales</h4>
+                    <p>Zou You &mdash; Head of Marketing. Brand strategy, digital marketing, partnerships, and customer acquisition.</p>
+                </div>
+                <div class="org-dept">
+                    <span class="dept-icon">&#128200;</span>
+                    <h4>Finance &amp; Operations</h4>
+                    <p>Zhao XinYing &mdash; Head of Finance. Financial planning, budgeting, and operational efficiency.</p>
+                </div>
+                <div class="org-dept">
+                    <span class="dept-icon">&#128187;</span>
+                    <h4>Technology &amp; Platform</h4>
+                    <p>Design tool development, AI engine, e-commerce infrastructure, and data analytics systems.</p>
+                </div>
+                <div class="org-dept">
+                    <span class="dept-icon">&#9881;</span>
+                    <h4>Manufacturing &amp; Logistics</h4>
+                    <p>Centralized factory operations, supply chain management, quality control, and global shipping.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- VALUES -->
+<section style="background:var(--white);">
+    <div class="container">
+        <div class="section-header animate">
+            <div class="section-label">Our Culture</div>
+            <h2>What Drives Us</h2>
+            <p>The core values that shape how we work and the product we build</p>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px; max-width:960px; margin:0 auto;">
+            <div class="animate" style="background:var(--lighter); border-radius:20px; padding:36px 28px; border:1px solid #eef; text-align:center;">
+                <div style="font-size:2.2rem; margin-bottom:14px;">&#128161;</div>
+                <h3 style="color:var(--primary); font-size:1.05rem; margin-bottom:10px;">Innovation First</h3>
+                <p style="color:var(--text-light); font-size:.88rem;">We embrace bold ideas and challenge conventional thinking. From AI-powered design to centralized manufacturing, we push the boundaries of what's possible in the souvenir industry.</p>
+            </div>
+            <div class="animate animate-delay-1" style="background:var(--lighter); border-radius:20px; padding:36px 28px; border:1px solid #eef; text-align:center;">
+                <div style="font-size:2.2rem; margin-bottom:14px;">&#129309;</div>
+                <h3 style="color:var(--primary); font-size:1.05rem; margin-bottom:10px;">Customer Obsession</h3>
+                <p style="color:var(--text-light); font-size:.88rem;">Every decision starts with our clients &mdash; the tourism businesses we serve. We listen, iterate, and build tools that genuinely solve real problems in souvenir design and procurement.</p>
+            </div>
+            <div class="animate animate-delay-2" style="background:var(--lighter); border-radius:20px; padding:36px 28px; border:1px solid #eef; text-align:center;">
+                <div style="font-size:2.2rem; margin-bottom:14px;">&#127793;</div>
+                <h3 style="color:var(--primary); font-size:1.05rem; margin-bottom:10px;">Sustainability</h3>
+                <p style="color:var(--text-light); font-size:.88rem;">We believe great business and environmental responsibility go hand in hand. Our centralized manufacturing model reduces waste, carbon footprint, and promotes eco-friendly sourcing.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- JOIN US -->
+<section style="background:var(--light);">
+    <div class="container" style="max-width:760px; text-align:center;">
+        <div class="section-header animate">
+            <div class="section-label">Careers</div>
+            <h2>Join the Team</h2>
+            <p>We are growing fast and looking for passionate people who want to make their mark on the souvenir industry.</p>
+        </div>
+        <div class="animate" style="background:var(--white); border-radius:24px; padding:44px; border:1px solid #eef; box-shadow:0 5px 20px rgba(0,0,0,.04);">
+            <p style="color:var(--text-light); font-size:1rem; margin-bottom:24px;">CraftedMemento is building the future of custom souvenir creation. If you're excited about tourism, design technology, AI, or sustainable manufacturing &mdash; we want to hear from you.</p>
+            <p style="color:var(--text-light); font-size:1rem; margin-bottom:32px;">We are actively looking for talent in: <strong style="color:var(--primary);">Platform Development</strong>, <strong style="color:var(--primary);">AI / Data Science</strong>, <strong style="color:var(--primary);">B2B Sales</strong>, and <strong style="color:var(--primary);">Supply Chain Management</strong>.</p>
+            <a href="contact.html" class="btn btn-primary">Get in Touch &rarr;</a>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+    <div class="cta-content">
+        <h2 class="animate">Built by a Team That Cares</h2>
+        <p class="animate animate-delay-1">CraftedMemento is backed by a committed founding team with a clear vision. Join us and experience the difference.</p>
+        <div class="cta-buttons animate animate-delay-2">
+            <a href="contact.html" class="btn btn-white">Contact Us &rarr;</a>
+            <a href="about.html" class="btn btn-outline-light">Our Story</a>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-top">
+        <div class="footer-brand">
+            <a href="index.html" class="logo"><span>Morethanca</span>.com</a>
+            <p>Your creative partner for custom souvenir design, centralized manufacturing, and global shipping. Based in Victoria, BC, Canada.</p>
+            <div class="social-links">
+                <a href="#" class="social-link">IG</a><a href="#" class="social-link">FB</a>
+                <a href="#" class="social-link">PT</a><a href="#" class="social-link">LI</a>
+            </div>
+        </div>
+        <div><h4>Platform</h4><ul>
+            <li><a href="features.html">Design Tool</a></li>
+            <li><a href="features.html">Manufacturing</a></li>
+            <li><a href="features.html">AI Advice</a></li>
+            <li><a href="pricing.html">Pricing</a></li>
+        </ul></div>
+        <div><h4>Company</h4><ul>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="team.html">Team</a></li>
+            <li><a href="roadmap.html">Roadmap</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul></div>
+        <div><h4>Explore</h4><ul>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="market.html">Market Analysis</a></li>
+            <li><a href="market.html">Revenue Model</a></li>
+            <li><a href="features.html">Advantages</a></li>
+        </ul></div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 CraftedMemento Creations. All rights reserved.</p>
+        <div class="footer-bottom-links"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div>
+    </div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('.animate').forEach(el => observer.observe(el));
+window.addEventListener('scroll', () => document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50));
+document.addEventListener('click', e => {
+    const nav = document.getElementById('navLinks');
+    if(!nav.contains(e.target) && !document.querySelector('.menu-toggle').contains(e.target)) nav.classList.remove('active');
+});
+</script>
+</body>
+</html>
